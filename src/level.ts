@@ -5,6 +5,8 @@ import { ChristmasTree } from "./christmasTree";
 import { WaterBucket } from "./items/waterBucket";
 import { Firewood } from "./items/firewood";
 import { Ornament } from "./items/ornament";
+import { StatusBar } from "./ui/statusBar";
+import { TOTAL_HEAT, TOTAL_WATER } from "./constants";
 
 export class Level extends ex.Scene {
   constructor() {
@@ -27,7 +29,15 @@ export class Level extends ex.Scene {
     const floor = new Floor(0, 300, 45, 1);
     const otherFloor = new Floor(engine.halfDrawWidth + 50, 200, 5, 1);
 
-    const tree = new ChristmasTree(engine.halfDrawWidth + 300, 262);
+    const waterBar = new StatusBar(20, 20, TOTAL_WATER, ex.Color.ExcaliburBlue);
+    const heatBar = new StatusBar(20, 60, TOTAL_HEAT, ex.Color.Red);
+
+    const tree = new ChristmasTree(
+      engine.halfDrawWidth + 300,
+      262,
+      waterBar,
+      heatBar
+    );
 
     const bucket = new WaterBucket(engine.halfDrawWidth - 200, 300 - 30);
     const log = new Firewood(engine.halfDrawWidth - 100, 300 - 30);
@@ -36,6 +46,8 @@ export class Level extends ex.Scene {
     engine.add(actor);
     engine.add(floor);
     engine.add(otherFloor);
+    engine.add(waterBar);
+    engine.add(heatBar);
     engine.add(tree);
     engine.add(bucket);
     engine.add(log);

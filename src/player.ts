@@ -100,18 +100,11 @@ export class Player extends ex.Actor {
 
     // onPostCollision is an event, not a lifecycle meaning it can be subscribed to by other things
     this.on("postcollision", (evt) => this.onPostCollision(evt));
-    this.on("collisionstart", (evt) => this.onCollisionStart(evt));
 
     this.vel.x = 1;
   }
 
-  onCollisionStart(evt: ex.CollisionStartEvent) {
-    // console.log(evt.other.name);
-  }
-
   onPostCollision(evt: ex.PostCollisionEvent) {
-    // Bot has collided with it's Top of another collider
-    console.log(evt.other.name);
     if (evt.side === ex.Side.Bottom) {
       this.onGround = true;
     }

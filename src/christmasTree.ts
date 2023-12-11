@@ -5,16 +5,22 @@ import {
   BUCKET_WATER_VALUE,
   ENV_TILE_RATIO,
   LOG_HEAT_VALUE,
+  TOTAL_HEAT,
+  TOTAL_WATER,
 } from "./constants";
+import { StatusBar } from "./ui/statusBar";
 
 const trianglePoints = [ex.vec(-25, 40), ex.vec(0, -40), ex.vec(25, 40)];
 
 export class ChristmasTree extends ex.Actor {
-  private heat = 100;
-  private water = 100;
+  private heat = TOTAL_HEAT;
+  private water = TOTAL_WATER;
   private decor = 0;
   private heatDecayMS = 1000;
   private waterDecayMS = 500;
+
+  waterStatusBar: StatusBar;
+  heatStatusBar: StatusBar;
 
   updateGraphics(): void {
     const tipSprite = envSpriteSheet.getSprite(0, 5) as ex.Sprite;
@@ -70,7 +76,7 @@ export class ChristmasTree extends ex.Actor {
     });
   }
 
-  constructor(x: number, y: number) {
+  constructor(x: number, y: number, waterBar: StatusBar, heatBar: StatusBar) {
     super({
       pos: new ex.Vector(x, y),
       scale: new ex.Vector(2, 2),
@@ -79,17 +85,21 @@ export class ChristmasTree extends ex.Actor {
       collider: ex.Shape.Box(60, 75, ex.Vector.Half, new ex.Vector(10, 0)),
     });
 
+    this.waterStatusBar = waterBar;
+    this.heatStatusBar = heatBar;
     this.updateGraphics();
   }
 
   setHeat(val: number): void {
     this.heat = val;
+    this.heatStatusBar.setCurrent(this.heat);
 
     if (this.heat === 0) alert("You lose (heat)");
   }
 
   setWater(val: number): void {
     this.water = val;
+    this.waterStatusBar.setCurrent(this.water);
 
     if (this.water === 0) alert("You lose (water)");
   }
