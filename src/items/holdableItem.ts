@@ -12,16 +12,13 @@ export class HoldableItem extends ex.Actor {
     height: number,
     width: number,
     sound: ex.Sound,
-    color: ex.Color,
     itemType: PlayerInventory
   ) {
     super({
       pos: new ex.Vector(x, y),
-      width,
-      height,
       collisionGroup: ex.CollisionGroupManager.groupByName("items"),
       collisionType: ex.CollisionType.Active,
-      color,
+      collider: ex.Shape.Box(width, height, ex.Vector.Half),
     });
     this.sound = sound;
     this.itemType = itemType;

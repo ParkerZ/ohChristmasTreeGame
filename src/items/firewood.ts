@@ -1,9 +1,14 @@
 import * as ex from "excalibur";
-import { Resources } from "../resources";
+import { Resources, woodSprite } from "../resources";
 import { HoldableItem } from "./holdableItem";
 
 export class Firewood extends HoldableItem {
   constructor(x: number, y: number) {
-    super(x, y, 25, 20, Resources.bloop, ex.Color.Orange, "log");
+    super(x, y, 35, 45, Resources.bloop, "log");
+
+    const sprite = woodSprite;
+    sprite.scale = new ex.Vector(0.65, 0.65);
+
+    this.graphics.show(woodSprite, { offset: new ex.Vector(0, 5) });
   }
 }
