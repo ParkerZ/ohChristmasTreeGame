@@ -1,6 +1,8 @@
 import * as ex from "excalibur";
 import { Resources, playerSpriteSheet } from "./resources";
 import { PlayerInventory } from "./types";
+import { SurfaceSlopedLeft } from "./floorTiles/surfaceSlopedLeft";
+import { SurfaceSlopedRight } from "./floorTiles/surfaceSlopedRight";
 
 export class Player extends ex.Actor {
   public xVelocity = 250;
@@ -34,7 +36,6 @@ export class Player extends ex.Actor {
     return this.inventory;
   }
 
-  // OnInitialize is called before the 1st actor update
   onInitialize(engine: ex.Engine) {
     const idleRight = ex.Animation.fromSpriteSheet(
       playerSpriteSheet,
@@ -88,7 +89,6 @@ export class Player extends ex.Actor {
     crouchLeft.scale = new ex.Vector(0.35, 0.35);
     crouchLeft.flipHorizontal = true;
 
-    // Register animations with actor
     this.graphics.add("idleRight", idleRight);
     this.graphics.add("idleLeft", idleLeft);
     this.graphics.add("right", right);
@@ -98,7 +98,6 @@ export class Player extends ex.Actor {
     this.graphics.add("crouchRight", crouchRight);
     this.graphics.add("crouchLeft", crouchLeft);
 
-    // onPostCollision is an event, not a lifecycle meaning it can be subscribed to by other things
     this.on("postcollision", (evt) => this.onPostCollision(evt));
 
     this.vel.x = 1;
@@ -109,30 +108,14 @@ export class Player extends ex.Actor {
       this.onGround = true;
     }
 
-    // if (this.inventory !== "empty" && evt.other instanceof HoldableItem) {
-    //   console.log("we got one");
-    //   this.crouch = true;
-    //   this.crouchTime = 500;
-    // }
-
-    // // Bot has collided on the side, display hurt animation
-    // if (
-    //   (evt.side === ex.Side.Left || evt.side === ex.Side.Right) &&
-    //   evt.other instanceof Baddie
-    // ) {
-    //   if (this.vel.x < 0 && !this.hurt) {
-    //     this.graphics.use("hurtleft");
-    //   }
-    //   if (this.vel.x >= 0 && !this.hurt) {
-    //     this.graphics.use("hurtright");
-    //   }
-    //   this.hurt = true;
-    //   this.hurtTime = 1000;
-    //   Resources.hit.play(0.1);
-    // }
+    if (
+      (evt.side === ex.Side.Right && evt.other instanceof SurfaceSlopedLeft) ||
+      (evt.side === ex.Side.Left && evt.other instanceof SurfaceSlopedRight)
+    ) {
+      this.onGround = true;
+    }
   }
 
-  // After main update, once per frame execute this code
   onPreUpdate(engine: ex.Engine, delta: number) {
     if (this.crouchTime > 0) {
       this.crouchTime -= delta;
@@ -152,10 +135,8 @@ export class Player extends ex.Actor {
       return;
     }
 
-    // Reset x velocity
     this.vel.x = 0;
 
-    // Player input
     if (engine.input.keyboard.isHeld(ex.Input.Keys.A)) {
       this.lastDir = "left";
       this.vel.x = -this.xVelocity;
@@ -175,7 +156,6 @@ export class Player extends ex.Actor {
       Resources.jump.play(0.1);
     }
 
-    // Change animation based on velocity
     if (this.vel.x < 0) {
       this.graphics.use("left");
     }

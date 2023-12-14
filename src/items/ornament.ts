@@ -4,10 +4,10 @@ import { HoldableItem } from "./holdableItem";
 
 export class Ornament extends HoldableItem {
   constructor(x: number, y: number) {
-    super(x, y, 25, 20, Resources.bloop, "ornament");
+    super(x + 15, y, 30, 25, Resources.bloop, "ornament");
 
     const sprite = ornamentSprite;
-    sprite.scale = new ex.Vector(0.3, 0.3);
+    sprite.scale = new ex.Vector(0.36, 0.36);
 
     this.graphics.show(ornamentSprite);
   }

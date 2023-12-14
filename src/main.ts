@@ -3,7 +3,7 @@ import { loader } from "./resources";
 import { Level } from "./level";
 
 const engine = new ex.Engine({
-  backgroundColor: ex.Color.fromHex("#5fcde4"),
+  backgroundColor: ex.Color.fromHex("#b2ebf7"),
   width: 800,
   height: 600,
   fixedUpdateFps: 60,

@@ -16,8 +16,8 @@ export class ChristmasTree extends ex.Actor {
   private heat = TOTAL_HEAT;
   private water = TOTAL_WATER;
   private decor = 0;
-  private heatDecayMS = 1000;
-  private waterDecayMS = 500;
+  private heatDecayMS = 100;
+  private waterDecayMS = 100;
 
   waterStatusBar: StatusBar;
   heatStatusBar: StatusBar;
@@ -108,16 +108,23 @@ export class ChristmasTree extends ex.Actor {
     this.decor = val;
   }
 
+  /**
+   * Lose one log's worth every 25 seconds
+   * Collecting the furthest log takes < 30 seconds
+   */
   startHeatDecline(): void {
     setTimeout(() => {
-      this.setHeat(this.heat - 1);
+      this.setHeat(this.heat - LOG_HEAT_VALUE / (10 * 25));
       this.startHeatDecline();
     }, this.heatDecayMS);
   }
 
-  startWaterDecline(): void {
+  /**
+   * Lose one bucket's worth every 35 seconds
+   * Collecting the furthest bucket takes < 40 seconds
+   */ startWaterDecline(): void {
     setTimeout(() => {
-      this.setWater(this.water - 1);
+      this.setWater(this.water - BUCKET_WATER_VALUE / (10 * 35));
       this.startWaterDecline();
     }, this.waterDecayMS);
   }

@@ -1,12 +1,18 @@
 import * as ex from "excalibur";
 import { Player } from "./player";
-import { Floor } from "./floor";
 import { ChristmasTree } from "./christmasTree";
 import { WaterBucket } from "./items/waterBucket";
 import { Firewood } from "./items/firewood";
 import { Ornament } from "./items/ornament";
 import { StatusBar } from "./ui/statusBar";
 import { TOTAL_HEAT, TOTAL_WATER } from "./constants";
+import { SurfaceSlopedLeft } from "./floorTiles/surfaceSlopedLeft";
+import { SurfaceClosed } from "./floorTiles/surfaceClosed";
+import { SurfaceSlopedRight } from "./floorTiles/surfaceSlopedRight";
+import { InteriorClosed } from "./floorTiles/interiorClosed";
+import { SurfaceOpenRight } from "./floorTiles/surfaceOpenRight";
+import { SurfaceOpenLeft } from "./floorTiles/surfaceOpenLeft";
+import { TileMap } from "./tileMap";
 
 export class Level extends ex.Scene {
   constructor() {
@@ -22,36 +28,30 @@ export class Level extends ex.Scene {
 
     // Compose actors in scene
     const actor = new Player(
-      engine.halfDrawWidth + 100,
-      engine.halfDrawHeight - 100
+      engine.halfDrawWidth + 40,
+      engine.halfDrawHeight + 300
     );
 
-    const floor = new Floor(0, 300, 45, 1);
-    const otherFloor = new Floor(engine.halfDrawWidth + 50, 200, 5, 1);
+    const map = new TileMap(engine.halfDrawWidth, engine.halfDrawHeight);
+    const floorsToDraw = map.getFloorTiles();
 
     const waterBar = new StatusBar(20, 20, TOTAL_WATER, ex.Color.ExcaliburBlue);
     const heatBar = new StatusBar(20, 60, TOTAL_HEAT, ex.Color.Red);
 
     const tree = new ChristmasTree(
       engine.halfDrawWidth + 300,
-      262,
+      engine.halfDrawHeight + 260,
       waterBar,
       heatBar
     );
 
-    const bucket = new WaterBucket(engine.halfDrawWidth - 200, 300 - 30);
-    const log = new Firewood(engine.halfDrawWidth - 100, 300 - 30);
-    const ornament = new Ornament(engine.halfDrawWidth + 1000, 300 - 30);
-
     engine.add(actor);
-    engine.add(floor);
-    engine.add(otherFloor);
+
+    floorsToDraw.forEach((floorActor) => engine.add(floorActor));
+
     engine.add(waterBar);
     engine.add(heatBar);
     engine.add(tree);
-    engine.add(bucket);
-    engine.add(log);
-    engine.add(ornament);
 
     // For the test harness to be predicable
     if (!(window as any).__TESTING) {
