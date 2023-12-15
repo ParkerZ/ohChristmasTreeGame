@@ -1,18 +1,10 @@
 import * as ex from "excalibur";
-import { Player } from "./player";
-import { ChristmasTree } from "./christmasTree";
-import { WaterBucket } from "./items/waterBucket";
-import { Firewood } from "./items/firewood";
-import { Ornament } from "./items/ornament";
-import { StatusBar } from "./ui/statusBar";
-import { TOTAL_HEAT, TOTAL_WATER } from "./constants";
-import { SurfaceSlopedLeft } from "./floorTiles/surfaceSlopedLeft";
-import { SurfaceClosed } from "./floorTiles/surfaceClosed";
-import { SurfaceSlopedRight } from "./floorTiles/surfaceSlopedRight";
-import { InteriorClosed } from "./floorTiles/interiorClosed";
-import { SurfaceOpenRight } from "./floorTiles/surfaceOpenRight";
-import { SurfaceOpenLeft } from "./floorTiles/surfaceOpenLeft";
-import { TileMap } from "./tileMap";
+import { Player } from "../player";
+import { ChristmasTree } from "../christmasTree";
+import { StatusBar } from "../ui/statusBar";
+import { TOTAL_HEAT, TOTAL_WATER } from "../constants";
+import { TileMap } from "../tileMap";
+import { LevelBackground } from "../ui/levelBackground";
 
 export class Level extends ex.Scene {
   constructor() {
@@ -20,14 +12,12 @@ export class Level extends ex.Scene {
   }
 
   onInitialize(engine: ex.Engine) {
-    // Create collision groups for the game
     ex.CollisionGroupManager.create("player");
     ex.CollisionGroupManager.create("floor");
     ex.CollisionGroupManager.create("items");
     ex.CollisionGroupManager.create("tree");
 
-    // Compose actors in scene
-    const actor = new Player(
+    const player = new Player(
       engine.halfDrawWidth + 40,
       engine.halfDrawHeight + 300
     );
@@ -45,7 +35,9 @@ export class Level extends ex.Scene {
       heatBar
     );
 
-    engine.add(actor);
+    const bg = new LevelBackground(this.camera);
+
+    engine.add(player);
 
     floorsToDraw.forEach((floorActor) => engine.add(floorActor));
 
@@ -53,11 +45,14 @@ export class Level extends ex.Scene {
     engine.add(heatBar);
     engine.add(tree);
 
+    engine.add(bg);
+
     // For the test harness to be predicable
     if (!(window as any).__TESTING) {
       // Create camera strategy
+      this.camera.pos = player.pos;
       this.camera.clearAllStrategies();
-      this.camera.strategy.elasticToActor(actor, 0.05, 0.1);
+      this.camera.strategy.elasticToActor(player, 0.05, 0.1);
     }
   }
 }

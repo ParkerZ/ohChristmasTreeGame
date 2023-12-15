@@ -1,6 +1,8 @@
 import * as ex from "excalibur";
-import { loader } from "./resources";
-import { Level } from "./level";
+import { Resources, loader, ornamentSprite } from "./resources";
+import { Level } from "./scenes/level";
+import { StartButton } from "./ui/startButton";
+import { Menu } from "./scenes/menu";
 
 const engine = new ex.Engine({
   backgroundColor: ex.Color.fromHex("#b2ebf7"),
@@ -9,13 +11,18 @@ const engine = new ex.Engine({
   fixedUpdateFps: 60,
 });
 
+// title screen
+
 // Set global gravity, 800 pixels/sec^2
 ex.Physics.acc = new ex.Vector(0, 2500);
 
 // Setup first level as a custom scene
 const level = new Level();
 engine.add("level", level);
-engine.goToScene("level");
+
+const menu = new Menu();
+engine.add("menu", menu);
+engine.goToScene("menu");
 
 // Game events to handle
 engine.on("hidden", () => {
@@ -34,4 +41,4 @@ engine.start(loader).then(() => {
 
 // For test hook
 (window as any).engine = engine;
-(window as any).level = level;
+// (window as any).level = level;
