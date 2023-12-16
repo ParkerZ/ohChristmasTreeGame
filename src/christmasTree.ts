@@ -1,6 +1,6 @@
 import * as ex from "excalibur";
 import { Player } from "./player";
-import { Resources, envSpriteSheet } from "./resources";
+import { Resources, envSpriteSheet, ornamentSprite } from "./resources";
 import { BUCKET_WATER_VALUE, ENV_TILE_RATIO, TOTAL_WATER } from "./constants";
 import { StatusBar } from "./ui/statusBar";
 
@@ -12,6 +12,7 @@ export class ChristmasTree extends ex.Actor {
   waterStatusBar: StatusBar;
 
   updateGraphics(): void {
+    this.graphics.layers.create({ name: "decor", order: 1 });
     const tipSprite = envSpriteSheet.getSprite(0, 5) as ex.Sprite;
     const centerSprite = envSpriteSheet.getSprite(9, 5) as ex.Sprite;
     const leftSprite = envSpriteSheet.getSprite(8, 6) as ex.Sprite;
@@ -87,6 +88,53 @@ export class ChristmasTree extends ex.Actor {
 
   setDecor(val: number): void {
     this.decor = val;
+
+    switch (this.decor) {
+      case 1:
+        const sprite = ornamentSprite.clone();
+        sprite.scale = ex.vec(0.1, 0.1);
+
+        this.graphics.layers
+          .get("decor")
+          .show(sprite, { offset: ex.vec(0, -5) });
+        break;
+      case 2:
+        const sprite1 = ornamentSprite.clone();
+        sprite1.scale = ex.vec(0.1, 0.1);
+        sprite1.flipHorizontal = true;
+
+        this.graphics.layers
+          .get("decor")
+          .show(sprite1, { offset: ex.vec(10, -35) });
+        break;
+      case 3:
+        const sprite2 = ornamentSprite.clone();
+        sprite2.scale = ex.vec(0.1, 0.1);
+
+        this.graphics.layers
+          .get("decor")
+          .show(sprite2, { offset: ex.vec(25, -25) });
+        break;
+      case 4:
+        const sprite3 = ornamentSprite.clone();
+        sprite3.scale = ex.vec(0.1, 0.1);
+        sprite3.flipHorizontal = true;
+
+        this.graphics.layers
+          .get("decor")
+          .show(sprite3, { offset: ex.vec(14, -12) });
+        break;
+      case 5:
+        const sprite4 = ornamentSprite.clone();
+        sprite4.scale = ex.vec(0.1, 0.1);
+
+        this.graphics.layers
+          .get("decor")
+          .show(sprite4, { offset: ex.vec(-5, -20) });
+        break;
+      default:
+        break;
+    }
   }
 
   /**
