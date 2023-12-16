@@ -13,6 +13,10 @@ const buttonIdleFile = require("../res/buttons/buttonIdle.png");
 const buttonPressFile = require("../res/buttons/buttonPress.png");
 const buttonHoverFile = require("../res/buttons/buttonHover.png");
 const buttonTextFile = require("../res/buttons/buttonText.png");
+const campfireWoodFile = require("../res/fire/wood.png");
+const campfireFire1File = require("../res/fire/fire1.png");
+const campfireFire2File = require("../res/fire/fire2.png");
+const campfireFire3File = require("../res/fire/fire3.png");
 
 const Resources = {
   player: new ex.ImageSource(playerFile),
@@ -26,6 +30,10 @@ const Resources = {
   buttonPress: new ex.ImageSource(buttonPressFile),
   buttonHover: new ex.ImageSource(buttonHoverFile),
   buttonText: new ex.ImageSource(buttonTextFile),
+  campfireWood: new ex.ImageSource(campfireWoodFile),
+  campfireFire1: new ex.ImageSource(campfireFire1File),
+  campfireFire2: new ex.ImageSource(campfireFire2File),
+  campfireFire3: new ex.ImageSource(campfireFire3File),
   jump: new ex.Sound(jumpSound),
   bloop: new ex.Sound(bloopSound),
 };
@@ -68,6 +76,11 @@ const buttonPressSprite = Resources.buttonPress.toSprite();
 const buttonHoverSprite = Resources.buttonHover.toSprite();
 const buttonTextSprite = Resources.buttonText.toSprite();
 
+const campfireWoodSprite = Resources.campfireWood.toSprite();
+const campfireFire1Sprite = Resources.campfireFire1.toSprite();
+const campfireFire2Sprite = Resources.campfireFire2.toSprite();
+const campfireFire3Sprite = Resources.campfireFire3.toSprite();
+
 for (const res in Resources) {
   loader.addResource((Resources as any)[res]);
 }
@@ -86,4 +99,8 @@ export {
   buttonPressSprite,
   buttonHoverSprite,
   buttonTextSprite,
+  campfireWoodSprite,
+  campfireFire1Sprite,
+  campfireFire2Sprite,
+  campfireFire3Sprite,
 };

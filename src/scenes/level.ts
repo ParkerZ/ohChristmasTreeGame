@@ -5,6 +5,7 @@ import { StatusBar } from "../ui/statusBar";
 import { TOTAL_HEAT, TOTAL_WATER } from "../constants";
 import { TileMap } from "../tileMap";
 import { LevelBackground } from "../ui/levelBackground";
+import { Campfire } from "../campfire";
 
 export class Level extends ex.Scene {
   constructor() {
@@ -29,9 +30,15 @@ export class Level extends ex.Scene {
     const heatBar = new StatusBar(20, 60, TOTAL_HEAT, ex.Color.Red);
 
     const tree = new ChristmasTree(
-      engine.halfDrawWidth + 300,
+      engine.halfDrawWidth + 225,
       engine.halfDrawHeight + 260,
       waterBar,
+      heatBar
+    );
+
+    const campfire = new Campfire(
+      engine.halfDrawWidth + 350,
+      engine.halfDrawHeight + 265,
       heatBar
     );
 
@@ -44,6 +51,7 @@ export class Level extends ex.Scene {
     engine.add(waterBar);
     engine.add(heatBar);
     engine.add(tree);
+    engine.add(campfire);
 
     engine.add(bg);
 

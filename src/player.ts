@@ -1,8 +1,19 @@
 import * as ex from "excalibur";
-import { Resources, playerSpriteSheet } from "./resources";
+import {
+  Resources,
+  canSprite,
+  ornamentSprite,
+  playerSpriteSheet,
+  woodSprite,
+} from "./resources";
 import { PlayerInventory } from "./types";
 import { SurfaceSlopedLeft } from "./floorTiles/surfaceSlopedLeft";
 import { SurfaceSlopedRight } from "./floorTiles/surfaceSlopedRight";
+import {
+  FIREWOOD_SPRITE_SCALE,
+  ORNAMENT_SPRITE_SCALE,
+  WATER_BUCKET_SPRITE_SCALE,
+} from "./constants";
 
 export class Player extends ex.Actor {
   public xVelocity = 250;
@@ -25,10 +36,9 @@ export class Player extends ex.Actor {
   }
 
   public setInventory(val: PlayerInventory): void {
-    if (val !== "empty") {
-      this.crouch = true;
-      this.crouchTime = 250;
-    }
+    console.log("setting inv", val);
+    this.crouch = true;
+    this.crouchTime = 250;
     this.inventory = val;
   }
 
@@ -89,6 +99,8 @@ export class Player extends ex.Actor {
     crouchLeft.scale = new ex.Vector(0.35, 0.35);
     crouchLeft.flipHorizontal = true;
 
+    this.graphics.layers.create({ name: "items", order: 1 });
+
     this.graphics.add("idleRight", idleRight);
     this.graphics.add("idleLeft", idleLeft);
     this.graphics.add("right", right);
@@ -117,6 +129,8 @@ export class Player extends ex.Actor {
   }
 
   onPreUpdate(engine: ex.Engine, delta: number) {
+    this.vel.x = 0;
+
     if (this.crouchTime > 0) {
       this.crouchTime -= delta;
 
@@ -134,8 +148,6 @@ export class Player extends ex.Actor {
       this.graphics.use("crouchRight");
       return;
     }
-
-    this.vel.x = 0;
 
     if (engine.input.keyboard.isHeld(ex.Input.Keys.A)) {
       this.lastDir = "left";
@@ -176,5 +188,47 @@ export class Player extends ex.Actor {
     if (!this.onGround && this.lastDir === "right") {
       this.graphics.use("jumpRight");
     }
+
+    this.addHeldItemGraphic();
+  }
+
+  private getHeldItemOffset(): ex.Vector {
+    if (this.lastDir === "left") {
+      return ex.vec(-30, 10);
+    }
+    return ex.vec(30, 10);
+  }
+
+  private addHeldItemGraphic(): void {
+    if (this.inventory === "empty") {
+      this.graphics.layers.get("items").hide();
+      return;
+    }
+
+    let sprite;
+    switch (this.inventory) {
+      case "log":
+        sprite = woodSprite.clone();
+        sprite.scale = FIREWOOD_SPRITE_SCALE;
+        break;
+      case "ornament":
+        sprite = ornamentSprite.clone();
+        sprite.scale = ORNAMENT_SPRITE_SCALE;
+        break;
+      case "bucket":
+        sprite = canSprite.clone();
+        sprite.scale = WATER_BUCKET_SPRITE_SCALE;
+        break;
+      default:
+        break;
+    }
+
+    if (!sprite) return;
+
+    sprite.flipHorizontal = this.lastDir === "right";
+    this.graphics.layers.get("items").hide();
+    this.graphics.layers
+      .get("items")
+      .show(sprite, { offset: this.getHeldItemOffset() });
   }
 }
