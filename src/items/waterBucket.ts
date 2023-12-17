@@ -6,7 +6,7 @@ import { WATER_BUCKET_SPRITE_SCALE } from "../constants";
 
 export class WaterBucket extends HoldableItem {
   constructor(x: number, y: number) {
-    super(x, y, 26, 38, Resources.bloop, "bucket");
+    super(x, y, 26, 38, Resources.sounds.water, "bucket");
 
     const sprite = canSprite.clone();
     sprite.scale = WATER_BUCKET_SPRITE_SCALE;

@@ -81,7 +81,7 @@ export class Campfire extends ex.Actor {
     switch (evt.other.getInventory()) {
       case "log":
         evt.other.setInventory("empty");
-        Resources.bloop.play(0.1);
+        Resources.sounds.woodDrop.play(1);
         this.setHeat(this.heat + LOG_HEAT_VALUE);
         break;
       default:

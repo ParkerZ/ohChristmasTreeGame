@@ -26,19 +26,18 @@ engine.goToScene("menu");
 
 // Game events to handle
 engine.on("hidden", () => {
-  console.log("pause");
   engine.stop();
 });
 engine.on("visible", () => {
-  console.log("start");
   engine.start();
 });
 
 // Start the engine
 engine.start(loader).then(() => {
-  console.log("game start");
+  Resources.sounds.soundtrack.loop = true;
+  Resources.sounds.soundtrack.play(0.15);
 });
 
 // For test hook
 (window as any).engine = engine;
-// (window as any).level = level;
+(window as any).level = level;

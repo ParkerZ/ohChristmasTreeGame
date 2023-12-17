@@ -1,5 +1,6 @@
 import * as ex from "excalibur";
 import {
+  Resources,
   buttonHoverSprite,
   buttonIdleSprite,
   buttonPressSprite,
@@ -37,6 +38,7 @@ export class StartButton extends ex.ScreenElement {
   onInitialize(engine: ex.Engine) {
     this.on("pointerdown", () => {
       this.sprite = buttonPressSprite;
+      Resources.sounds.button.play(1);
       setTimeout(() => (this.sprite = buttonHoverSprite), 150);
       setTimeout(() => engine.goToScene("level"), 200);
     });

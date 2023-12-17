@@ -32,7 +32,7 @@ export class HoldableItem extends ex.Actor {
   onCollisionStart(evt: ex.CollisionStartEvent) {
     if (evt.other instanceof Player && evt.other.getInventory() === "empty") {
       evt.other.setInventory(this.itemType);
-      this.sound.play(0.1);
+      this.sound.play(1);
       setTimeout(() => this.actions.die(), 200);
     }
   }

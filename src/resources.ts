@@ -1,7 +1,15 @@
 import * as ex from "excalibur";
 
-const jumpSound = require("../res/jump.wav");
-const bloopSound = require("../res/bloop.wav");
+const buttonSound = require("../res/soundFX/button.wav");
+const jumpSound = require("../res/soundFX/jump.wav");
+const loseSound = require("../res/soundFX/lose.wav");
+const ornamentSound = require("../res/soundFX/ornament.wav");
+const waterSound = require("../res/soundFX/water.wav");
+const winSound = require("../res/soundFX/win.wav");
+const woodDropSound = require("../res/soundFX/woodDrop.mp3");
+const woodPickupSound = require("../res/soundFX/woodPickup.wav");
+const soundtrackSound = require("../res/soundFX/soundtrack.wav");
+
 const playerFile = require("../res/spritesheet_players.png");
 const envFile = require("../res/spritesheet_environment.png");
 const canFile = require("../res/can.png");
@@ -19,6 +27,18 @@ const campfireFire2File = require("../res/fire/fire2.png");
 const campfireFire3File = require("../res/fire/fire3.png");
 
 const Resources = {
+  sounds: {
+    button: new ex.Sound(buttonSound),
+    jump: new ex.Sound(jumpSound),
+    lose: new ex.Sound(loseSound),
+    ornament: new ex.Sound(ornamentSound),
+    water: new ex.Sound(waterSound),
+    win: new ex.Sound(winSound),
+    woodDrop: new ex.Sound(woodDropSound),
+    woodPickup: new ex.Sound(woodPickupSound),
+    soundtrack: new ex.Sound(soundtrackSound),
+  },
+
   player: new ex.ImageSource(playerFile),
   env: new ex.ImageSource(envFile),
   can: new ex.ImageSource(canFile),
@@ -34,8 +54,6 @@ const Resources = {
   campfireFire1: new ex.ImageSource(campfireFire1File),
   campfireFire2: new ex.ImageSource(campfireFire2File),
   campfireFire3: new ex.ImageSource(campfireFire3File),
-  jump: new ex.Sound(jumpSound),
-  bloop: new ex.Sound(bloopSound),
 };
 
 const loader = new ex.Loader();
@@ -82,7 +100,13 @@ const campfireFire2Sprite = Resources.campfireFire2.toSprite();
 const campfireFire3Sprite = Resources.campfireFire3.toSprite();
 
 for (const res in Resources) {
-  loader.addResource((Resources as any)[res]);
+  if (res !== "sounds") {
+    loader.addResource((Resources as any)[res]);
+    continue;
+  }
+  for (const sound in (Resources as any).sounds) {
+    loader.addResource((Resources as any).sounds[sound]);
+  }
 }
 
 export {
