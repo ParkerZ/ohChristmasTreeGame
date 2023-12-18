@@ -1,5 +1,5 @@
 import * as ex from "excalibur";
-import { Resources, envSpriteSheet } from "../resources";
+import { Resources } from "../resources";
 
 export class CalendarPage extends ex.Actor {
   sprite;

@@ -13,6 +13,8 @@ export const WATER_BUCKET_SPRITE_SCALE = ex.vec(0.15, 0.15);
 export const FIREWOOD_SPRITE_SCALE = ex.vec(0.4875, 0.4875);
 export const ORNAMENT_SPRITE_SCALE = ex.vec(0.36, 0.36);
 
+export const SOUNDTRACK_VOLUME = 0.1;
+
 // This is nearly undreadable, copy-paste ./map.txt for easier editing
 export const MAP_LAYOUT = [
   [

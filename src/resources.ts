@@ -1,5 +1,6 @@
 import * as ex from "excalibur";
 
+/** sounds */
 const buttonSound = require("../res/soundFX/button.wav");
 const jumpSound = require("../res/soundFX/jump.wav");
 const loseSound = require("../res/soundFX/lose.wav");
@@ -11,15 +12,21 @@ const woodPickupSound = require("../res/soundFX/woodPickup.wav");
 const pageSound = require("../res/soundFX/page.wav");
 const soundtrackSound = require("../res/soundFX/soundtrack.wav");
 
+/** spritesheets */
 const playerFile = require("../res/spritesheet_players.png");
 const envFile = require("../res/spritesheet_environment.png");
 const calendarFile = require("../res/spritesheet_calendar.png");
 
+/** backgrounds */
+const bgMenuFile = require("../res/background/main.png");
+const bgLevelFile = require("../res/background/level.png");
+const bgLoseHeatFile = require("../res/background/loseHeat.png");
+const bgLoseWaterFile = require("../res/background/loseWater.png");
+const bgWinFile = require("../res/background/win.png");
+
 const canFile = require("../res/can.png");
 const ornamentFile = require("../res/ornament.png");
 const woodFile = require("../res/wood.png");
-const bgMenuFile = require("../res/bgWithTree.png");
-const bgLevelFile = require("../res/bgWithoutTree.png");
 const buttonIdleFile = require("../res/buttons/buttonIdle.png");
 const buttonPressFile = require("../res/buttons/buttonPress.png");
 const buttonHoverFile = require("../res/buttons/buttonHover.png");
@@ -39,6 +46,8 @@ const barWhiteMidFile = require("../res/statusBars/barHorizontal_white_mid.png")
 const barWhiteRightFile = require("../res/statusBars/barHorizontal_white_right.png");
 const barCanFile = require("../res/statusBars/canUI.png");
 const barWoodFile = require("../res/statusBars/woodUI.png");
+const ornamentFullFile = require("../res/ornamentIconFull.png");
+const ornamentEmptyFile = require("../res/ornamentIconEmpty.png");
 
 const Resources = {
   sounds: {
@@ -58,11 +67,15 @@ const Resources = {
   env: new ex.ImageSource(envFile),
   calendar: new ex.ImageSource(calendarFile),
 
+  backgroundMenu: new ex.ImageSource(bgMenuFile),
+  backgroundLevel: new ex.ImageSource(bgLevelFile),
+  backgroundWin: new ex.ImageSource(bgWinFile),
+  backgroundLoseHeat: new ex.ImageSource(bgLoseHeatFile),
+  backgroundLoseWater: new ex.ImageSource(bgLoseWaterFile),
+
   can: new ex.ImageSource(canFile),
   wood: new ex.ImageSource(woodFile),
   ornament: new ex.ImageSource(ornamentFile),
-  backgroundMenu: new ex.ImageSource(bgMenuFile),
-  backgroundLevel: new ex.ImageSource(bgLevelFile),
   buttonIdle: new ex.ImageSource(buttonIdleFile),
   buttonPress: new ex.ImageSource(buttonPressFile),
   buttonHover: new ex.ImageSource(buttonHoverFile),
@@ -83,6 +96,8 @@ const Resources = {
   barWhiteRight: new ex.ImageSource(barWhiteRightFile),
   barCan: new ex.ImageSource(barCanFile),
   barWood: new ex.ImageSource(barWoodFile),
+  ornamentFullIcon: new ex.ImageSource(ornamentFullFile),
+  ornamentEmptyIcon: new ex.ImageSource(ornamentEmptyFile),
 };
 
 const loader = new ex.Loader();
@@ -127,6 +142,9 @@ const ornamentSprite = Resources.ornament.toSprite();
 
 const backgroundMenuSprite = Resources.backgroundMenu.toSprite();
 const backgroundLevelSprite = Resources.backgroundLevel.toSprite();
+const backgroundWinSprite = Resources.backgroundWin.toSprite();
+const backgroundLoseHeatSprite = Resources.backgroundLoseHeat.toSprite();
+const backgroundLoseWaterSprite = Resources.backgroundLoseWater.toSprite();
 
 const buttonIdleSprite = Resources.buttonIdle.toSprite();
 const buttonPressSprite = Resources.buttonPress.toSprite();
@@ -149,6 +167,8 @@ const barWhiteMidSprite = Resources.barWhiteMid.toSprite();
 const barWhiteRightSprite = Resources.barWhiteRight.toSprite();
 const barCanSprite = Resources.barCan.toSprite();
 const barWoodSprite = Resources.barWood.toSprite();
+const ornamentFullIconSprite = Resources.ornamentFullIcon.toSprite();
+const ornamentEmptyIconSprite = Resources.ornamentEmptyIcon.toSprite();
 
 for (const res in Resources) {
   if (res !== "sounds") {
@@ -171,6 +191,9 @@ export {
   ornamentSprite,
   backgroundMenuSprite,
   backgroundLevelSprite,
+  backgroundWinSprite,
+  backgroundLoseHeatSprite,
+  backgroundLoseWaterSprite,
   buttonIdleSprite,
   buttonPressSprite,
   buttonHoverSprite,
@@ -190,4 +213,6 @@ export {
   barWhiteRightSprite,
   barCanSprite,
   barWoodSprite,
+  ornamentFullIconSprite,
+  ornamentEmptyIconSprite,
 };

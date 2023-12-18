@@ -5,7 +5,6 @@ import { Floor } from "./floor";
 
 const quadPoints = [ex.vec(20, 0), ex.vec(0, 0), ex.vec(0, 20), ex.vec(15, 12)];
 
-// 3
 export class SurfaceOpenRight extends Floor {
   constructor(x: number, y: number) {
     const sprite = envSpriteSheet.getSprite(5, 1) as ex.Sprite;

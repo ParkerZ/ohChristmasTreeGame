@@ -6,6 +6,7 @@ import {
   buttonPressSprite,
   buttonTextSprite,
 } from "../resources";
+import { Level } from "../scenes/level";
 
 export class StartButton extends ex.ScreenElement {
   sprite;
@@ -40,7 +41,11 @@ export class StartButton extends ex.ScreenElement {
       this.sprite = buttonPressSprite;
       Resources.sounds.button.play(0.75);
       setTimeout(() => (this.sprite = buttonHoverSprite), 150);
-      setTimeout(() => engine.goToScene("level"), 200);
+      setTimeout(() => {
+        engine.removeScene("level");
+        engine.add("level", new Level());
+        engine.goToScene("level");
+      }, 200);
     });
 
     this.on("pointerenter", () => {

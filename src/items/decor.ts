@@ -1,7 +1,8 @@
 import * as ex from "excalibur";
-import { Resources, envSpriteSheet } from "../resources";
+import { envSpriteSheet } from "../resources";
 import { ENV_TILE_RATIO } from "../constants";
 import { randomBool, randomInt } from "../utils";
+
 const spritePool = [
   envSpriteSheet.getSprite(10, 1) as ex.Sprite,
   envSpriteSheet.getSprite(9, 4) as ex.Sprite,
@@ -13,6 +14,7 @@ const spritePool = [
   envSpriteSheet.getSprite(4, 4) as ex.Sprite,
   envSpriteSheet.getSprite(5, 4) as ex.Sprite,
 ];
+
 export class Decor extends ex.Actor {
   constructor(x: number, y: number) {
     super({

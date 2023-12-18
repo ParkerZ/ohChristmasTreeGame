@@ -5,7 +5,6 @@ import { Floor } from "./floor";
 
 const trianglePoints = [ex.vec(20, 20), ex.vec(0, 0), ex.vec(0, 20)];
 
-// 5
 export class SurfaceSlopedRight extends Floor {
   constructor(x: number, y: number) {
     const sprite = envSpriteSheet.getSprite(6, 0) as ex.Sprite;

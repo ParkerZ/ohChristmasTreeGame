@@ -1,7 +1,4 @@
 import * as ex from "excalibur";
-import { envSpriteSheet } from "../resources";
-import { ENV_TILE_RATIO } from "../constants";
-import e from "express";
 
 const trianglePoints = [ex.vec(20, 20), ex.vec(20, 0), ex.vec(0, 20)];
 const offset = new ex.Vector(40, 40);

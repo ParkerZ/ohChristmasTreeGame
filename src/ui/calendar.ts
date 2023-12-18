@@ -6,6 +6,8 @@ export class Calendar extends ex.ScreenElement {
   private dayIndex = 0;
   private dayIntervalMS = 8000;
   sprite;
+  isActive = true;
+  isChristmas = false;
 
   constructor(x: number, y: number) {
     super({
@@ -15,6 +17,14 @@ export class Calendar extends ex.ScreenElement {
 
     this.sprite = calendarSpriteSheet.getSprite(0, 0) as ex.Sprite;
     this.sprite.scale = ex.vec(0.4, 0.4);
+  }
+
+  getIsChristmas(): boolean {
+    return this.isChristmas;
+  }
+
+  setIsActive(val: boolean): void {
+    this.isActive = val;
   }
 
   onInitialize(engine: ex.Engine): void {
@@ -27,6 +37,9 @@ export class Calendar extends ex.ScreenElement {
   }
 
   nextDay(engine: ex.Engine): void {
+    if (!this.isActive) return;
+    console.log("calendar day");
+
     this.dayIndex += 1;
 
     const page = new CalendarPage(this.pos.x, this.pos.y, this.sprite);
@@ -44,7 +57,7 @@ export class Calendar extends ex.ScreenElement {
 
     if (this.dayIndex === 24) {
       setTimeout(() => {
-        alert("You win");
+        this.isChristmas = true;
       }, 1000);
       return;
     }

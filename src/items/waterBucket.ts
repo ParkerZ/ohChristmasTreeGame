@@ -1,4 +1,3 @@
-import * as ex from "excalibur";
 import { Resources, canSprite } from "../resources";
 import { HoldableItem } from "./holdableItem";
 import { randomBool } from "../utils";

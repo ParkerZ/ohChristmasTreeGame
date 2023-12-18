@@ -3,13 +3,111 @@ import { Player } from "./player";
 import { Resources, envSpriteSheet, ornamentSprite } from "./resources";
 import { BUCKET_WATER_VALUE, ENV_TILE_RATIO, TOTAL_WATER } from "./constants";
 import { StatusBar } from "./ui/statusBar";
+import { Calendar } from "./ui/calendar";
 
 export class ChristmasTree extends ex.Actor {
   private water = TOTAL_WATER;
   private decor = 0;
   private waterDecayMS = 100;
+  private isActive = true;
 
   waterStatusBar: StatusBar;
+  calendar: Calendar;
+
+  constructor(x: number, y: number, waterBar: StatusBar, calendar: Calendar) {
+    super({
+      pos: new ex.Vector(x, y),
+      scale: new ex.Vector(2, 2),
+      collisionGroup: ex.CollisionGroupManager.groupByName("tree"),
+      collisionType: ex.CollisionType.Passive,
+      collider: ex.Shape.Box(50, 75, ex.Vector.Half, new ex.Vector(10, 0)),
+    });
+
+    this.waterStatusBar = waterBar;
+    this.calendar = calendar;
+  }
+
+  getDecor(): number {
+    return this.decor;
+  }
+
+  getWater(): number {
+    return this.water;
+  }
+
+  setWater(val: number): void {
+    this.water = val;
+    this.waterStatusBar.setCurrent(this.water);
+
+    if (this.water <= 0) alert("You lose (water)");
+  }
+
+  setIsActive(val: boolean): void {
+    this.isActive = false;
+  }
+
+  /**
+   * Lose one bucket's worth every 28 seconds
+   * Collecting the furthest bucket takes < 40 seconds
+   */ startWaterDecline(): void {
+    setTimeout(() => {
+      if (!this.isActive) return;
+
+      this.setWater(this.water - BUCKET_WATER_VALUE / (10 * 28));
+      this.startWaterDecline();
+    }, this.waterDecayMS);
+  }
+
+  setDecor(val: number): void {
+    this.decor = val;
+
+    switch (this.decor) {
+      case 1:
+        const sprite = ornamentSprite.clone();
+        sprite.scale = ex.vec(0.1, 0.1);
+
+        this.graphics.layers
+          .get("decor")
+          .show(sprite, { offset: ex.vec(0, -5) });
+        break;
+      case 2:
+        const sprite1 = ornamentSprite.clone();
+        sprite1.scale = ex.vec(0.1, 0.1);
+        sprite1.flipHorizontal = true;
+
+        this.graphics.layers
+          .get("decor")
+          .show(sprite1, { offset: ex.vec(10, -35) });
+        break;
+      case 3:
+        const sprite2 = ornamentSprite.clone();
+        sprite2.scale = ex.vec(0.1, 0.1);
+
+        this.graphics.layers
+          .get("decor")
+          .show(sprite2, { offset: ex.vec(25, -25) });
+        break;
+      case 4:
+        const sprite3 = ornamentSprite.clone();
+        sprite3.scale = ex.vec(0.1, 0.1);
+        sprite3.flipHorizontal = true;
+
+        this.graphics.layers
+          .get("decor")
+          .show(sprite3, { offset: ex.vec(14, -12) });
+        break;
+      case 5:
+        const sprite4 = ornamentSprite.clone();
+        sprite4.scale = ex.vec(0.1, 0.1);
+
+        this.graphics.layers
+          .get("decor")
+          .show(sprite4, { offset: ex.vec(-5, -20) });
+        break;
+      default:
+        break;
+    }
+  }
 
   updateGraphics(): void {
     this.graphics.layers.create({ name: "decor", order: 1 });
@@ -66,90 +164,11 @@ export class ChristmasTree extends ex.Actor {
     });
   }
 
-  constructor(x: number, y: number, waterBar: StatusBar, heatBar: StatusBar) {
-    super({
-      pos: new ex.Vector(x, y),
-      scale: new ex.Vector(2, 2),
-      collisionGroup: ex.CollisionGroupManager.groupByName("tree"),
-      collisionType: ex.CollisionType.Passive,
-      collider: ex.Shape.Box(50, 75, ex.Vector.Half, new ex.Vector(10, 0)),
-    });
-
-    this.waterStatusBar = waterBar;
-    this.updateGraphics();
-  }
-
-  setWater(val: number): void {
-    this.water = val;
-    this.waterStatusBar.setCurrent(this.water);
-
-    if (this.water <= 0) alert("You lose (water)");
-  }
-
-  setDecor(val: number): void {
-    this.decor = val;
-
-    switch (this.decor) {
-      case 1:
-        const sprite = ornamentSprite.clone();
-        sprite.scale = ex.vec(0.1, 0.1);
-
-        this.graphics.layers
-          .get("decor")
-          .show(sprite, { offset: ex.vec(0, -5) });
-        break;
-      case 2:
-        const sprite1 = ornamentSprite.clone();
-        sprite1.scale = ex.vec(0.1, 0.1);
-        sprite1.flipHorizontal = true;
-
-        this.graphics.layers
-          .get("decor")
-          .show(sprite1, { offset: ex.vec(10, -35) });
-        break;
-      case 3:
-        const sprite2 = ornamentSprite.clone();
-        sprite2.scale = ex.vec(0.1, 0.1);
-
-        this.graphics.layers
-          .get("decor")
-          .show(sprite2, { offset: ex.vec(25, -25) });
-        break;
-      case 4:
-        const sprite3 = ornamentSprite.clone();
-        sprite3.scale = ex.vec(0.1, 0.1);
-        sprite3.flipHorizontal = true;
-
-        this.graphics.layers
-          .get("decor")
-          .show(sprite3, { offset: ex.vec(14, -12) });
-        break;
-      case 5:
-        const sprite4 = ornamentSprite.clone();
-        sprite4.scale = ex.vec(0.1, 0.1);
-
-        this.graphics.layers
-          .get("decor")
-          .show(sprite4, { offset: ex.vec(-5, -20) });
-        break;
-      default:
-        break;
-    }
-  }
-
-  /**
-   * Lose one bucket's worth every 30 seconds
-   * Collecting the furthest bucket takes < 40 seconds
-   */ startWaterDecline(): void {
-    setTimeout(() => {
-      this.setWater(this.water - BUCKET_WATER_VALUE / (10 * 30));
-      this.startWaterDecline();
-    }, this.waterDecayMS);
-  }
-
   onInitialize(_engine: ex.Engine): void {
     this.z = -1;
     this.startWaterDecline();
+
+    this.updateGraphics();
 
     this.on("collisionstart", (evt) => this.onCollisionStart(evt));
   }

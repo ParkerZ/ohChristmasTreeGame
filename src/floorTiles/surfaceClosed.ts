@@ -3,7 +3,6 @@ import { envSpriteSheet } from "../resources";
 import { ENV_TILE_RATIO } from "../constants";
 import { Floor } from "./floor";
 
-// 1
 export class SurfaceClosed extends Floor {
   constructor(x: number, y: number) {
     const sprite = envSpriteSheet.getSprite(3, 0) as ex.Sprite;

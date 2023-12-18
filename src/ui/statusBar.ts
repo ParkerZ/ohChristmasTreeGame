@@ -3,7 +3,6 @@ import {
   barBlueLeftSprite,
   barBlueMidSprite,
   barBlueRightSprite,
-  barCanSprite,
   barWhiteLeftSprite,
   barWhiteMidSprite,
   barWhiteRightSprite,
@@ -96,6 +95,8 @@ export class StatusBar extends ex.ScreenElement {
   draw() {
     // clear graphics
     this.graphics.hide();
+
+    if (this.current <= 0) return;
 
     // draw foreground
     this.graphics.show(this.foreLeft, { offset: iconOffset });
