@@ -165,7 +165,7 @@ export class Player extends ex.Actor {
     ) {
       this.vel.y = -this.yVelocity;
       this.onGround = false;
-      Resources.sounds.jump.play(1);
+      Resources.sounds.jump.play(0.75);
     }
 
     if (this.vel.x < 0) {

@@ -11,8 +11,6 @@ const engine = new ex.Engine({
   fixedUpdateFps: 60,
 });
 
-// title screen
-
 // Set global gravity, 800 pixels/sec^2
 ex.Physics.acc = new ex.Vector(0, 2500);
 
@@ -20,6 +18,7 @@ ex.Physics.acc = new ex.Vector(0, 2500);
 const level = new Level();
 engine.add("level", level);
 
+// title screen
 const menu = new Menu();
 engine.add("menu", menu);
 engine.goToScene("menu");
@@ -35,7 +34,7 @@ engine.on("visible", () => {
 // Start the engine
 engine.start(loader).then(() => {
   Resources.sounds.soundtrack.loop = true;
-  Resources.sounds.soundtrack.play(0.15);
+  Resources.sounds.soundtrack.play(0.1);
 });
 
 // For test hook

@@ -35,6 +35,13 @@ export class TileMap {
         {}
       );
 
+    const woodDropIndices = new Array(6)
+      .fill(0)
+      .reduce(
+        (acc, _curr, i) => ({ ...acc, [2 * i + randomInt(2)]: true }),
+        {}
+      );
+
     let waterIndex = 0;
     let woodIndex = 0;
     let ornamentIndex = 0;
@@ -154,7 +161,6 @@ export class TileMap {
               )
             );
             break;
-          // TODO: because the decay rate differs, the drop rate should chage
           case 20:
             if (dropIndices[waterIndex++]) {
               this.floorTiles.push(
@@ -166,7 +172,7 @@ export class TileMap {
             }
             break;
           case 30:
-            if (dropIndices[woodIndex++]) {
+            if (woodDropIndices[woodIndex++]) {
               this.floorTiles.push(
                 new Firewood(
                   xOffset + TILE_WIDTH * colIndex,

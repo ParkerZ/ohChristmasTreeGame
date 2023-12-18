@@ -6,6 +6,7 @@ import { TOTAL_HEAT, TOTAL_WATER } from "../constants";
 import { TileMap } from "../tileMap";
 import { LevelBackground } from "../ui/levelBackground";
 import { Campfire } from "../campfire";
+import { barCanSprite, barWoodSprite } from "../resources";
 
 export class Level extends ex.Scene {
   constructor() {
@@ -26,8 +27,28 @@ export class Level extends ex.Scene {
     const map = new TileMap(engine.halfDrawWidth, engine.halfDrawHeight);
     const floorsToDraw = map.getFloorTiles();
 
-    const waterBar = new StatusBar(20, 20, TOTAL_WATER, ex.Color.ExcaliburBlue);
-    const heatBar = new StatusBar(20, 60, TOTAL_HEAT, ex.Color.Red);
+    const waterBarIcon = barCanSprite;
+    waterBarIcon.scale = ex.vec(0.2, 0.2);
+    const waterBar = new StatusBar(
+      20,
+      20,
+      TOTAL_WATER,
+      "blue",
+      waterBarIcon,
+      ex.vec(-20, -23)
+    );
+
+    const heatBarIcon = barWoodSprite;
+    barWoodSprite.scale = ex.vec(0.6, 0.6);
+    const heatBar = new StatusBar(
+      20,
+      70,
+      TOTAL_HEAT,
+      "yellow",
+      heatBarIcon,
+      ex.vec(-95, -96),
+      350
+    );
 
     const tree = new ChristmasTree(
       engine.halfDrawWidth + 225,

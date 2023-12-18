@@ -5,6 +5,7 @@ import { PlayerInventory } from "../types";
 export class HoldableItem extends ex.Actor {
   public itemType;
   public sound;
+  volume;
 
   constructor(
     x: number,
@@ -12,7 +13,8 @@ export class HoldableItem extends ex.Actor {
     height: number,
     width: number,
     sound: ex.Sound,
-    itemType: PlayerInventory
+    itemType: PlayerInventory,
+    volume = 0.75
   ) {
     super({
       pos: new ex.Vector(x, y),
@@ -22,6 +24,7 @@ export class HoldableItem extends ex.Actor {
     });
     this.sound = sound;
     this.itemType = itemType;
+    this.volume = volume;
   }
 
   onInitialize(_engine: ex.Engine): void {
@@ -32,7 +35,7 @@ export class HoldableItem extends ex.Actor {
   onCollisionStart(evt: ex.CollisionStartEvent) {
     if (evt.other instanceof Player && evt.other.getInventory() === "empty") {
       evt.other.setInventory(this.itemType);
-      this.sound.play(1);
+      this.sound.play(this.volume);
       setTimeout(() => this.actions.die(), 200);
     }
   }

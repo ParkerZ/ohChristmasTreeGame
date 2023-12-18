@@ -25,6 +25,8 @@ Made as entry for game jam.
 - Ornament: https://kenney.nl/assets/platformer-art-candy
 - Player: https://kenney.nl/assets/platformer-pack-redux
 - Watering can: https://stock.adobe.com/search?k=watering+can+clip+art&asset_id=600680540
+- Status bars: https://kenney.nl/assets/ui-pack-space-expansion
+- Menu button: https://kenney.nl/assets/ui-pack
 
 ### Audio Assets:
 

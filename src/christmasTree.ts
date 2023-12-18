@@ -160,12 +160,12 @@ export class ChristmasTree extends ex.Actor {
     switch (evt.other.getInventory()) {
       case "bucket":
         evt.other.setInventory("empty");
-        Resources.sounds.water.play(1);
+        Resources.sounds.water.play(0.75);
         this.setWater(this.water + BUCKET_WATER_VALUE);
         break;
       case "ornament":
         evt.other.setInventory("empty");
-        Resources.sounds.ornament.play(1);
+        Resources.sounds.ornament.play(0.75);
         this.setDecor(this.decor + 1);
       default:
         break;

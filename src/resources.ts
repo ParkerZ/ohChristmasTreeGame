@@ -25,6 +25,17 @@ const campfireWoodFile = require("../res/fire/wood.png");
 const campfireFire1File = require("../res/fire/fire1.png");
 const campfireFire2File = require("../res/fire/fire2.png");
 const campfireFire3File = require("../res/fire/fire3.png");
+const barBlueLeftFile = require("../res/statusBars/barHorizontal_blue_left.png");
+const barBlueMidFile = require("../res/statusBars/barHorizontal_blue_mid.png");
+const barBlueRightFile = require("../res/statusBars/barHorizontal_blue_right.png");
+const barYellowLeftFile = require("../res/statusBars/barHorizontal_yellow_left.png");
+const barYellowMidFile = require("../res/statusBars/barHorizontal_yellow_mid.png");
+const barYellowRightFile = require("../res/statusBars/barHorizontal_yellow_right.png");
+const barWhiteLeftFile = require("../res/statusBars/barHorizontal_white_left.png");
+const barWhiteMidFile = require("../res/statusBars/barHorizontal_white_mid.png");
+const barWhiteRightFile = require("../res/statusBars/barHorizontal_white_right.png");
+const barCanFile = require("../res/statusBars/canUI.png");
+const barWoodFile = require("../res/statusBars/woodUI.png");
 
 const Resources = {
   sounds: {
@@ -54,6 +65,18 @@ const Resources = {
   campfireFire1: new ex.ImageSource(campfireFire1File),
   campfireFire2: new ex.ImageSource(campfireFire2File),
   campfireFire3: new ex.ImageSource(campfireFire3File),
+
+  barBlueLeft: new ex.ImageSource(barBlueLeftFile),
+  barBlueMid: new ex.ImageSource(barBlueMidFile),
+  barBlueRight: new ex.ImageSource(barBlueRightFile),
+  barYellowLeft: new ex.ImageSource(barYellowLeftFile),
+  barYellowMid: new ex.ImageSource(barYellowMidFile),
+  barYellowRight: new ex.ImageSource(barYellowRightFile),
+  barWhiteLeft: new ex.ImageSource(barWhiteLeftFile),
+  barWhiteMid: new ex.ImageSource(barWhiteMidFile),
+  barWhiteRight: new ex.ImageSource(barWhiteRightFile),
+  barCan: new ex.ImageSource(barCanFile),
+  barWood: new ex.ImageSource(barWoodFile),
 };
 
 const loader = new ex.Loader();
@@ -99,6 +122,18 @@ const campfireFire1Sprite = Resources.campfireFire1.toSprite();
 const campfireFire2Sprite = Resources.campfireFire2.toSprite();
 const campfireFire3Sprite = Resources.campfireFire3.toSprite();
 
+const barBlueLeftSprite = Resources.barBlueLeft.toSprite();
+const barBlueMidSprite = Resources.barBlueMid.toSprite();
+const barBlueRightSprite = Resources.barBlueRight.toSprite();
+const barYellowLeftSprite = Resources.barYellowLeft.toSprite();
+const barYellowMidSprite = Resources.barYellowMid.toSprite();
+const barYellowRightSprite = Resources.barYellowRight.toSprite();
+const barWhiteLeftSprite = Resources.barWhiteLeft.toSprite();
+const barWhiteMidSprite = Resources.barWhiteMid.toSprite();
+const barWhiteRightSprite = Resources.barWhiteRight.toSprite();
+const barCanSprite = Resources.barCan.toSprite();
+const barWoodSprite = Resources.barWood.toSprite();
+
 for (const res in Resources) {
   if (res !== "sounds") {
     loader.addResource((Resources as any)[res]);
@@ -127,4 +162,15 @@ export {
   campfireFire1Sprite,
   campfireFire2Sprite,
   campfireFire3Sprite,
+  barBlueLeftSprite,
+  barBlueMidSprite,
+  barBlueRightSprite,
+  barYellowLeftSprite,
+  barYellowMidSprite,
+  barYellowRightSprite,
+  barWhiteLeftSprite,
+  barWhiteMidSprite,
+  barWhiteRightSprite,
+  barCanSprite,
+  barWoodSprite,
 };
