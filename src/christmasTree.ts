@@ -83,7 +83,7 @@ export class ChristmasTree extends ex.Actor {
     this.water = val;
     this.waterStatusBar.setCurrent(this.water);
 
-    if (this.water === 0) alert("You lose (water)");
+    if (this.water <= 0) alert("You lose (water)");
   }
 
   setDecor(val: number): void {
@@ -138,11 +138,11 @@ export class ChristmasTree extends ex.Actor {
   }
 
   /**
-   * Lose one bucket's worth every 35 seconds
+   * Lose one bucket's worth every 30 seconds
    * Collecting the furthest bucket takes < 40 seconds
    */ startWaterDecline(): void {
     setTimeout(() => {
-      this.setWater(this.water - BUCKET_WATER_VALUE / (10 * 35));
+      this.setWater(this.water - BUCKET_WATER_VALUE / (10 * 30));
       this.startWaterDecline();
     }, this.waterDecayMS);
   }

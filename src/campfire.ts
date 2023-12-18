@@ -11,7 +11,7 @@ import { LOG_HEAT_VALUE, TOTAL_HEAT } from "./constants";
 import { StatusBar } from "./ui/statusBar";
 
 export class Campfire extends ex.Actor {
-  private heat = TOTAL_HEAT;
+  private heat = 100;
   private heatDecayMS = 100;
 
   heatStatusBar: StatusBar;
@@ -33,8 +33,9 @@ export class Campfire extends ex.Actor {
   setHeat(val: number): void {
     this.heat = val;
     this.heatStatusBar.setCurrent(this.heat);
+    console.log(this.heat);
 
-    if (this.heat === 0) alert("You lose (heat)");
+    if (this.heat <= 0) alert("You lose (heat)");
   }
 
   /**
@@ -43,7 +44,7 @@ export class Campfire extends ex.Actor {
    */
   startHeatDecline(): void {
     setTimeout(() => {
-      this.setHeat(this.heat - LOG_HEAT_VALUE / (10 * 24));
+      this.setHeat(this.heat - LOG_HEAT_VALUE / (10 * 20));
       this.startHeatDecline();
     }, this.heatDecayMS);
   }
