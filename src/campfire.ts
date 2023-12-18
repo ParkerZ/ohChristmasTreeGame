@@ -11,7 +11,7 @@ import { LOG_HEAT_VALUE, TOTAL_HEAT } from "./constants";
 import { StatusBar } from "./ui/statusBar";
 
 export class Campfire extends ex.Actor {
-  private heat = 100;
+  private heat = TOTAL_HEAT;
   private heatDecayMS = 100;
 
   heatStatusBar: StatusBar;
