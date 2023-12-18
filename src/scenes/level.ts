@@ -7,7 +7,9 @@ import { TileMap } from "../tileMap";
 import { LevelBackground } from "../ui/levelBackground";
 import { Campfire } from "../campfire";
 import { barCanSprite, barWoodSprite } from "../resources";
+import { Calendar } from "../ui/calendar";
 
+// Level should last 225 seconds
 export class Level extends ex.Scene {
   constructor() {
     super();
@@ -50,6 +52,8 @@ export class Level extends ex.Scene {
       350
     );
 
+    const calendar = new Calendar(engine.drawWidth - 140, 20);
+
     const tree = new ChristmasTree(
       engine.halfDrawWidth + 225,
       engine.halfDrawHeight + 260,
@@ -71,6 +75,7 @@ export class Level extends ex.Scene {
 
     engine.add(waterBar);
     engine.add(heatBar);
+    engine.add(calendar);
     engine.add(tree);
     engine.add(campfire);
 

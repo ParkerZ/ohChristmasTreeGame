@@ -38,12 +38,12 @@ export class Campfire extends ex.Actor {
   }
 
   /**
-   * Lose one log's worth every 25 seconds
+   * Lose one log's worth every 24 seconds
    * Collecting the furthest log takes < 30 seconds
    */
   startHeatDecline(): void {
     setTimeout(() => {
-      this.setHeat(this.heat - LOG_HEAT_VALUE / (10 * 25));
+      this.setHeat(this.heat - LOG_HEAT_VALUE / (10 * 24));
       this.startHeatDecline();
     }, this.heatDecayMS);
   }

@@ -12,7 +12,7 @@ import {
   barYellowRightSprite,
 } from "../resources";
 
-const iconOffset = ex.vec(60, 0);
+const iconOffset = ex.vec(55, 0);
 
 export class StatusBar extends ex.ScreenElement {
   foreLeft;
@@ -57,9 +57,6 @@ export class StatusBar extends ex.ScreenElement {
 
     this.total = total;
     this.current = total;
-
-    this.transform.coordPlane = ex.CoordPlane.Screen;
-    this.body.collisionType = ex.CollisionType.PreventCollision;
 
     this.barWidth = width;
     this.barHeight = height;

@@ -8,10 +8,13 @@ const waterSound = require("../res/soundFX/water.wav");
 const winSound = require("../res/soundFX/win.wav");
 const woodDropSound = require("../res/soundFX/woodDrop.mp3");
 const woodPickupSound = require("../res/soundFX/woodPickup.wav");
+const pageSound = require("../res/soundFX/page.wav");
 const soundtrackSound = require("../res/soundFX/soundtrack.wav");
 
 const playerFile = require("../res/spritesheet_players.png");
 const envFile = require("../res/spritesheet_environment.png");
+const calendarFile = require("../res/spritesheet_calendar.png");
+
 const canFile = require("../res/can.png");
 const ornamentFile = require("../res/ornament.png");
 const woodFile = require("../res/wood.png");
@@ -47,11 +50,14 @@ const Resources = {
     win: new ex.Sound(winSound),
     woodDrop: new ex.Sound(woodDropSound),
     woodPickup: new ex.Sound(woodPickupSound),
+    page: new ex.Sound(pageSound),
     soundtrack: new ex.Sound(soundtrackSound),
   },
 
   player: new ex.ImageSource(playerFile),
   env: new ex.ImageSource(envFile),
+  calendar: new ex.ImageSource(calendarFile),
+
   can: new ex.ImageSource(canFile),
   wood: new ex.ImageSource(woodFile),
   ornament: new ex.ImageSource(ornamentFile),
@@ -105,6 +111,16 @@ const envSpriteSheet = ex.SpriteSheet.fromImageSource({
   },
 });
 
+const calendarSpriteSheet = ex.SpriteSheet.fromImageSource({
+  image: Resources.calendar,
+  grid: {
+    columns: 5,
+    rows: 5,
+    spriteWidth: 267,
+    spriteHeight: 272,
+  },
+});
+
 const canSprite = Resources.can.toSprite();
 const woodSprite = Resources.wood.toSprite();
 const ornamentSprite = Resources.ornament.toSprite();
@@ -149,6 +165,7 @@ export {
   loader,
   playerSpriteSheet,
   envSpriteSheet,
+  calendarSpriteSheet,
   canSprite,
   woodSprite,
   ornamentSprite,

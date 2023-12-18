@@ -48,12 +48,6 @@ export class TileMap {
 
     for (let rowIndex = 0; rowIndex < rowCount; rowIndex++) {
       for (let colIndex = 0; colIndex < colCount; colIndex++) {
-        if (colIndex == 0)
-          console.log(
-            xOffset + TILE_WIDTH * colIndex,
-            yOffset + TILE_HEIGHT * rowIndex
-          );
-
         switch (MAP_LAYOUT[rowIndex][colIndex]) {
           case 1:
             this.floorTiles.push(

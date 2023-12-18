@@ -38,7 +38,7 @@ export class StartButton extends ex.ScreenElement {
   onInitialize(engine: ex.Engine) {
     this.on("pointerdown", () => {
       this.sprite = buttonPressSprite;
-      Resources.sounds.button.play(1);
+      Resources.sounds.button.play(0.75);
       setTimeout(() => (this.sprite = buttonHoverSprite), 150);
       setTimeout(() => engine.goToScene("level"), 200);
     });

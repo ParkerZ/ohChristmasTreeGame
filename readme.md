@@ -27,6 +27,7 @@ Made as entry for game jam.
 - Watering can: https://stock.adobe.com/search?k=watering+can+clip+art&asset_id=600680540
 - Status bars: https://kenney.nl/assets/ui-pack-space-expansion
 - Menu button: https://kenney.nl/assets/ui-pack
+- Calendar: https://www.vecteezy.com/vector-art/252013-simple-christmas-advent-calendar
 
 ### Audio Assets:
 
@@ -39,3 +40,4 @@ Made as entry for game jam.
 - win: https://freesound.org/people/Fupicat/sounds/521645/
 - lose: https://freesound.org/people/Leszek_Szary/sounds/133283/
 - button: https://freesound.org/people/dodrio/sounds/554021/
+- calendar: https://freesound.org/people/InspectorJ/sounds/416179/

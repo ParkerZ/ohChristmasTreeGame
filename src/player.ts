@@ -36,7 +36,6 @@ export class Player extends ex.Actor {
   }
 
   public setInventory(val: PlayerInventory): void {
-    console.log("setting inv", val);
     this.crouch = true;
     this.crouchTime = 250;
     this.inventory = val;
@@ -129,6 +128,7 @@ export class Player extends ex.Actor {
   }
 
   onPreUpdate(engine: ex.Engine, delta: number) {
+    // TODO: ray cast below for floor tile, set onGround = false if not
     this.vel.x = 0;
 
     if (this.crouchTime > 0) {
