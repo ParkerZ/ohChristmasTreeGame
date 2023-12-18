@@ -2,25 +2,23 @@ import * as ex from "excalibur";
 import { Player } from "../player";
 import { ChristmasTree } from "../christmasTree";
 import { StatusBar } from "../ui/statusBar";
-import { TOTAL_HEAT, TOTAL_WATER } from "../constants";
+import { SOUNDTRACK_VOLUME, TOTAL_HEAT, TOTAL_WATER } from "../constants";
 import { TileMap } from "../tileMap";
 import { LevelBackground } from "../ui/levelBackground";
 import { Campfire } from "../campfire";
-import { barCanSprite, barWoodSprite } from "../resources";
+import { Resources, barCanSprite, barWoodSprite } from "../resources";
 import { Calendar } from "../ui/calendar";
+import { SceneManager } from "../sceneManager";
 
-// Level should last 225 seconds
+// Level should last 200 seconds
 export class Level extends ex.Scene {
   constructor() {
     super();
   }
 
   onInitialize(engine: ex.Engine) {
-    ex.CollisionGroupManager.create("player");
-    ex.CollisionGroupManager.create("floor");
-    ex.CollisionGroupManager.create("items");
-    ex.CollisionGroupManager.create("tree");
-
+    if (Resources.sounds.soundtrack.isPaused())
+      Resources.sounds.soundtrack.play(SOUNDTRACK_VOLUME);
     const player = new Player(
       engine.halfDrawWidth + 40,
       engine.halfDrawHeight + 300
@@ -58,14 +56,17 @@ export class Level extends ex.Scene {
       engine.halfDrawWidth + 225,
       engine.halfDrawHeight + 260,
       waterBar,
-      heatBar
+      calendar
     );
 
     const campfire = new Campfire(
       engine.halfDrawWidth + 350,
       engine.halfDrawHeight + 265,
-      heatBar
+      heatBar,
+      calendar
     );
+
+    const manager = new SceneManager(tree, campfire, calendar);
 
     const bg = new LevelBackground(this.camera);
 
@@ -78,6 +79,7 @@ export class Level extends ex.Scene {
     engine.add(calendar);
     engine.add(tree);
     engine.add(campfire);
+    engine.add(manager);
 
     engine.add(bg);
 

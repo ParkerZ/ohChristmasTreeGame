@@ -1,14 +1,15 @@
 import * as ex from "excalibur";
 import { StartButton } from "../ui/startButton";
 import { MenuBackground } from "../ui/menuBackground";
+import { Resources, backgroundLoseWaterSprite } from "../resources";
 
-export class Menu extends ex.Scene {
+export class LoseWaterMenu extends ex.Scene {
   constructor() {
     super();
   }
 
   onInitialize(engine: ex.Engine) {
-    const bg = new MenuBackground();
+    const bg = new MenuBackground(backgroundLoseWaterSprite);
     const button = new StartButton(
       engine.halfDrawWidth,
       (engine.halfDrawHeight * 4) / 3
@@ -16,5 +17,10 @@ export class Menu extends ex.Scene {
 
     engine.add(bg);
     engine.add(button);
+  }
+
+  onActivate(_context: ex.SceneActivationContext<unknown>): void {
+    Resources.sounds.soundtrack.pause();
+    Resources.sounds.lose.play(0.75);
   }
 }
