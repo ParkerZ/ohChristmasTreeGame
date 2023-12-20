@@ -1,41 +1,55 @@
-import { MAP_LAYOUT, TILE_HEIGHT, TILE_WIDTH } from "./constants";
-import { InteriorCornerLeftt } from "./floorTiles/InteriorCornerLeft";
-import { CaneGreenTop } from "./floorTiles/caneGreenTop";
-import { CaneGreenTrunk } from "./floorTiles/caneGreenTrunk";
-import { CaneRedTop } from "./floorTiles/caneRedTop";
-import { CaneRedTrunk } from "./floorTiles/caneRedTrunk";
-import { Floor } from "./floorTiles/floor";
-import { InteriorClosed } from "./floorTiles/interiorClosed";
-import { InteriorCornerRight } from "./floorTiles/interiorCornerRight";
-import { SurfaceClosed } from "./floorTiles/surfaceClosed";
-import { SurfaceOpenLeft } from "./floorTiles/surfaceOpenLeft";
-import { SurfaceOpenRight } from "./floorTiles/surfaceOpenRight";
-import { SurfaceSlopedLeft } from "./floorTiles/surfaceSlopedLeft";
-import { SurfaceSlopedRight } from "./floorTiles/surfaceSlopedRight";
-import { Decor } from "./items/decor";
-import { Firewood } from "./items/firewood";
-import { Ornament } from "./items/ornament";
-import { WaterBucket } from "./items/waterBucket";
-import { randomBool, randomInt } from "./utils";
+import { TILE_HEIGHT, TILE_WIDTH } from "../constants";
+import { InteriorCornerLeftt } from "../floorTiles/InteriorCornerLeft";
+import { CaneGreenTop } from "../floorTiles/caneGreenTop";
+import { CaneGreenTrunk } from "../floorTiles/caneGreenTrunk";
+import { CaneRedTop } from "../floorTiles/caneRedTop";
+import { CaneRedTrunk } from "../floorTiles/caneRedTrunk";
+import { Floor } from "../floorTiles/floor";
+import { InteriorClosed } from "../floorTiles/interiorClosed";
+import { InteriorCornerRight } from "../floorTiles/interiorCornerRight";
+import { SurfaceClosed } from "../floorTiles/surfaceClosed";
+import { SurfaceOpenLeft } from "../floorTiles/surfaceOpenLeft";
+import { SurfaceOpenRight } from "../floorTiles/surfaceOpenRight";
+import { SurfaceSlopedLeft } from "../floorTiles/surfaceSlopedLeft";
+import { SurfaceSlopedRight } from "../floorTiles/surfaceSlopedRight";
+import { Decor } from "../items/decor";
+import { Firewood } from "../items/firewood";
+import { Ornament } from "../items/ornament";
+import { WaterBucket } from "../items/waterBucket";
+import { randomBool, randomInt } from "../utils";
 
 export class TileMap {
   private floorTiles: Floor[] = [];
 
-  constructor(xCenter: number, yCenter: number) {
-    const rowCount = MAP_LAYOUT.length;
-    const colCount = MAP_LAYOUT[0].length;
+  constructor(
+    xCenter: number,
+    yCenter: number,
+    map: (number | undefined)[][],
+    numWater = 5,
+    numWood = 6,
+    numOrnaments = 5
+  ) {
+    const rowCount = map.length;
+    const colCount = map[0].length;
 
     const xOffset = xCenter - (TILE_WIDTH * colCount) / 2;
     const yOffset = yCenter - (TILE_HEIGHT * rowCount) / 2;
 
-    const dropIndices = new Array(5)
+    const waterDropIndices = new Array(numWater)
       .fill(0)
       .reduce(
         (acc, _curr, i) => ({ ...acc, [2 * i + randomInt(2)]: true }),
         {}
       );
 
-    const woodDropIndices = new Array(6)
+    const woodDropIndices = new Array(numWood)
+      .fill(0)
+      .reduce(
+        (acc, _curr, i) => ({ ...acc, [2 * i + randomInt(2)]: true }),
+        {}
+      );
+
+    const ornamentDropIndices = new Array(numOrnaments)
       .fill(0)
       .reduce(
         (acc, _curr, i) => ({ ...acc, [2 * i + randomInt(2)]: true }),
@@ -48,7 +62,7 @@ export class TileMap {
 
     for (let rowIndex = 0; rowIndex < rowCount; rowIndex++) {
       for (let colIndex = 0; colIndex < colCount; colIndex++) {
-        switch (MAP_LAYOUT[rowIndex][colIndex]) {
+        switch (map[rowIndex][colIndex]) {
           case 1:
             this.floorTiles.push(
               new SurfaceClosed(
@@ -156,7 +170,7 @@ export class TileMap {
             );
             break;
           case 20:
-            if (dropIndices[waterIndex++]) {
+            if (waterDropIndices[waterIndex++]) {
               this.floorTiles.push(
                 new WaterBucket(
                   xOffset + TILE_WIDTH * colIndex,
@@ -176,7 +190,7 @@ export class TileMap {
             }
             break;
           case 40:
-            if (dropIndices[ornamentIndex++]) {
+            if (ornamentDropIndices[ornamentIndex++]) {
               this.floorTiles.push(
                 new Ornament(
                   xOffset + TILE_WIDTH * colIndex,

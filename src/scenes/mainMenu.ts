@@ -12,7 +12,8 @@ export class MainMenu extends ex.Scene {
     const bg = new MenuBackground(backgroundMenuSprite);
     const button = new StartButton(
       engine.halfDrawWidth,
-      (engine.halfDrawHeight * 4) / 3
+      (engine.halfDrawHeight * 4) / 3,
+      true
     );
 
     engine.add(bg);

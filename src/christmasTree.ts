@@ -9,12 +9,18 @@ export class ChristmasTree extends ex.Actor {
   private water = TOTAL_WATER;
   private decor = 0;
   private waterDecayMS = 100;
-  private isActive = true;
+  private isActive;
 
   waterStatusBar: StatusBar;
   calendar: Calendar;
 
-  constructor(x: number, y: number, waterBar: StatusBar, calendar: Calendar) {
+  constructor(
+    x: number,
+    y: number,
+    waterBar: StatusBar,
+    calendar: Calendar,
+    isActive = true
+  ) {
     super({
       pos: new ex.Vector(x, y),
       scale: new ex.Vector(2, 2),
@@ -25,6 +31,7 @@ export class ChristmasTree extends ex.Actor {
 
     this.waterStatusBar = waterBar;
     this.calendar = calendar;
+    this.isActive = isActive;
   }
 
   getDecor(): number {
@@ -36,14 +43,20 @@ export class ChristmasTree extends ex.Actor {
   }
 
   setWater(val: number): void {
+    if (!this.isActive) return;
     this.water = val;
     this.waterStatusBar.setCurrent(this.water);
-
-    if (this.water <= 0) alert("You lose (water)");
   }
 
   setIsActive(val: boolean): void {
-    this.isActive = false;
+    if (!this.isActive && val) this.onActivate();
+
+    this.isActive = val;
+  }
+
+  onActivate(): void {
+    this.waterStatusBar.setIsActive(true);
+    this.startWaterDecline();
   }
 
   /**

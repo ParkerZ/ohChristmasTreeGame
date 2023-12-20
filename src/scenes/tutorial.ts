@@ -9,10 +9,10 @@ import { Campfire } from "../campfire";
 import { Resources, barCanSprite, barWoodSprite } from "../resources";
 import { Calendar } from "../ui/calendar";
 import { SceneManager } from "../sceneManager";
-import { LEVEL_MAP_LAYOUT } from "../maps/levelMap";
+import { TUTORIAL_MAP_LAYOUT } from "../maps/tutorialMap";
+import { Igloo } from "../igloo";
 
-// Level should last 200 seconds
-export class Level extends ex.Scene {
+export class Tutorial extends ex.Scene {
   constructor() {
     super();
   }
@@ -28,7 +28,10 @@ export class Level extends ex.Scene {
     const map = new TileMap(
       engine.halfDrawWidth,
       engine.halfDrawHeight,
-      LEVEL_MAP_LAYOUT
+      TUTORIAL_MAP_LAYOUT,
+      1,
+      1,
+      1
     );
     const floorsToDraw = map.getFloorTiles();
 
@@ -40,7 +43,10 @@ export class Level extends ex.Scene {
       TOTAL_WATER,
       "blue",
       waterBarIcon,
-      ex.vec(-20, -23)
+      ex.vec(-20, -23),
+      400,
+      25,
+      false
     );
 
     const heatBarIcon = barWoodSprite;
@@ -52,26 +58,41 @@ export class Level extends ex.Scene {
       "yellow",
       heatBarIcon,
       ex.vec(-95, -96),
-      350
+      350,
+      25,
+      false
     );
 
-    const calendar = new Calendar(engine.drawWidth - 140, 20);
+    const calendar = new Calendar(engine.drawWidth - 140, 20, false);
 
     const tree = new ChristmasTree(
-      engine.halfDrawWidth + 225,
+      engine.halfDrawWidth + 550,
       engine.halfDrawHeight + 260,
       waterBar,
-      calendar
+      calendar,
+      false
     );
 
     const campfire = new Campfire(
-      engine.halfDrawWidth + 350,
+      engine.halfDrawWidth + 675,
       engine.halfDrawHeight + 265,
       heatBar,
-      calendar
+      calendar,
+      false
     );
 
-    const manager = new SceneManager(tree, campfire, calendar, player);
+    const manager = new SceneManager(tree, campfire, calendar, player, true);
+
+    const igloo = new Igloo(
+      engine.halfDrawWidth + 1500,
+      engine.halfDrawHeight + 265
+    );
+
+    const inputText = new ex.Label({
+      pos: ex.vec(200, engine.halfDrawHeight + 450),
+      text: "A, D, Space to move",
+      font: new ex.Font({ size: 48, family: "verdana" }),
+    });
 
     const bg = new LevelBackground(this.camera);
 
@@ -85,7 +106,9 @@ export class Level extends ex.Scene {
     engine.add(tree);
     engine.add(campfire);
     engine.add(manager);
+    engine.add(igloo);
 
+    engine.add(inputText);
     engine.add(bg);
 
     // For the test harness to be predicable

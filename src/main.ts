@@ -4,6 +4,7 @@ import { MainMenu } from "./scenes/mainMenu";
 import { WinMenu } from "./scenes/winMenu";
 import { LoseHeatMenu } from "./scenes/loseHeatMenu";
 import { SOUNDTRACK_VOLUME } from "./constants";
+import { LoseWaterMenu } from "./scenes/loseWaterMenu";
 
 const engine = new ex.Engine({
   backgroundColor: ex.Color.fromHex("#b2ebf7"),
@@ -21,13 +22,13 @@ ex.CollisionGroupManager.create("floor");
 ex.CollisionGroupManager.create("items");
 ex.CollisionGroupManager.create("tree");
 
-// title screen - level is created in menu
+// title screen - level and tutorial are created in menu
 const menu = new MainMenu();
 
 // win/lose screens
 const winScreen = new WinMenu();
 const loseHeatScreen = new LoseHeatMenu();
-const loseWaterScreen = new LoseHeatMenu();
+const loseWaterScreen = new LoseWaterMenu();
 
 engine.add("menu", menu);
 engine.add("win", winScreen);

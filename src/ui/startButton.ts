@@ -7,16 +7,20 @@ import {
   buttonTextSprite,
 } from "../resources";
 import { Level } from "../scenes/level";
+import { Tutorial } from "../scenes/tutorial";
 
 export class StartButton extends ex.ScreenElement {
   sprite;
-  constructor(x: number, y: number) {
+  shouldLoadTutorial;
+
+  constructor(x: number, y: number, shouldLoadTutorial = false) {
     super({
       x: x - buttonIdleSprite.width / 2,
       y: y - buttonIdleSprite.height / 2,
     });
 
     this.sprite = buttonIdleSprite;
+    this.shouldLoadTutorial = shouldLoadTutorial;
   }
 
   onPostUpdate(_engine: ex.Engine, _delta: number): void {
@@ -43,7 +47,11 @@ export class StartButton extends ex.ScreenElement {
       setTimeout(() => (this.sprite = buttonHoverSprite), 150);
       setTimeout(() => {
         engine.removeScene("level");
-        engine.add("level", new Level());
+        if (this.shouldLoadTutorial) {
+          engine.add("level", new Tutorial());
+        } else {
+          engine.add("level", new Level());
+        }
         engine.goToScene("level");
       }, 200);
     });

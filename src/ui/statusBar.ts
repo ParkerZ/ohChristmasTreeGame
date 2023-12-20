@@ -26,6 +26,9 @@ export class StatusBar extends ex.ScreenElement {
   barHeight = 25;
   total;
   current;
+
+  isActive;
+
   constructor(
     x: number,
     y: number,
@@ -34,7 +37,8 @@ export class StatusBar extends ex.ScreenElement {
     iconSprite: ex.Sprite,
     iconPos: ex.Vector,
     width = 400,
-    height = 25
+    height = 25,
+    isActive = true
   ) {
     super({
       name: "statusBar",
@@ -59,9 +63,17 @@ export class StatusBar extends ex.ScreenElement {
 
     this.barWidth = width;
     this.barHeight = height;
+
+    this.isActive = isActive;
   }
 
-  onInitialize(_engine: ex.Engine): void {
+  setIsActive(val: boolean): void {
+    this.isActive = val;
+
+    if (this.isActive) this.onActivate();
+  }
+
+  onActivate(): void {
     this.graphics.layers.create({ name: "background", order: -1 });
     this.graphics.layers.create({ name: "icon", order: 1 });
 
@@ -85,6 +97,10 @@ export class StatusBar extends ex.ScreenElement {
     });
 
     this.draw();
+  }
+
+  onInitialize(_engine: ex.Engine): void {
+    if (this.isActive) this.onActivate();
   }
 
   setCurrent(val: number): void {

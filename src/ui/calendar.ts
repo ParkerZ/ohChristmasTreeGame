@@ -1,15 +1,16 @@
 import * as ex from "excalibur";
 import { calendarSpriteSheet } from "../resources";
 import { CalendarPage } from "./calendarPage";
+import { CALENDAR_DAY_INTERVAL } from "../constants";
 
 export class Calendar extends ex.ScreenElement {
   private dayIndex = 0;
-  private dayIntervalMS = 8000;
   sprite;
-  isActive = true;
+  isActive;
   isChristmas = false;
+  private hasActivated = false;
 
-  constructor(x: number, y: number) {
+  constructor(x: number, y: number, isActive = true) {
     super({
       name: "calendar",
       pos: new ex.Vector(x, y),
@@ -17,6 +18,8 @@ export class Calendar extends ex.ScreenElement {
 
     this.sprite = calendarSpriteSheet.getSprite(0, 0) as ex.Sprite;
     this.sprite.scale = ex.vec(0.4, 0.4);
+
+    this.isActive = isActive;
   }
 
   getIsChristmas(): boolean {
@@ -27,19 +30,24 @@ export class Calendar extends ex.ScreenElement {
     this.isActive = val;
   }
 
-  onInitialize(engine: ex.Engine): void {
+  onPreUpdate(engine: ex.Engine, _delta: number): void {
+    if (!this.hasActivated && this.isActive) {
+      this.onActivate(engine);
+    }
+  }
+
+  onActivate(engine: ex.Engine): void {
+    this.hasActivated = true;
     this.z = -1.1;
     this.graphics.use(this.sprite);
 
     setTimeout(() => {
       this.nextDay(engine);
-    }, this.dayIntervalMS);
+    }, CALENDAR_DAY_INTERVAL);
   }
 
   nextDay(engine: ex.Engine): void {
     if (!this.isActive) return;
-    console.log("calendar day");
-
     this.dayIndex += 1;
 
     const page = new CalendarPage(this.pos.x, this.pos.y, this.sprite);
@@ -64,6 +72,6 @@ export class Calendar extends ex.ScreenElement {
 
     setTimeout(() => {
       this.nextDay(engine);
-    }, this.dayIntervalMS);
+    }, CALENDAR_DAY_INTERVAL);
   }
 }

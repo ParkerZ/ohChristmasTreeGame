@@ -14,12 +14,18 @@ import { Calendar } from "./ui/calendar";
 export class Campfire extends ex.Actor {
   private heat = TOTAL_HEAT;
   private heatDecayMS = 100;
-  private isActive = true;
+  private isActive;
 
   heatStatusBar: StatusBar;
   calendar: Calendar;
 
-  constructor(x: number, y: number, heatBar: StatusBar, calendar: Calendar) {
+  constructor(
+    x: number,
+    y: number,
+    heatBar: StatusBar,
+    calendar: Calendar,
+    isActive = true
+  ) {
     super({
       pos: new ex.Vector(x, y),
       scale: new ex.Vector(2, 2),
@@ -32,6 +38,7 @@ export class Campfire extends ex.Actor {
     this.heatStatusBar = heatBar;
     this.calendar = calendar;
     this.z = -1;
+    this.isActive = isActive;
   }
 
   getHeat(): number {
@@ -39,12 +46,21 @@ export class Campfire extends ex.Actor {
   }
 
   setHeat(val: number): void {
+    if (!this.isActive) return;
+
     this.heat = val;
     this.heatStatusBar.setCurrent(this.heat);
   }
 
   setIsActive(val: boolean): void {
-    this.isActive = false;
+    if (!this.isActive && val) this.onActivate();
+
+    this.isActive = val;
+  }
+
+  onActivate(): void {
+    this.heatStatusBar.setIsActive(true);
+    this.startHeatDecline();
   }
 
   /**

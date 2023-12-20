@@ -14,6 +14,8 @@ import {
   ORNAMENT_SPRITE_SCALE,
   WATER_BUCKET_SPRITE_SCALE,
 } from "./constants";
+import { CaneGreenTrunk } from "./floorTiles/caneGreenTrunk";
+import { CaneRedTrunk } from "./floorTiles/caneRedTrunk";
 
 export class Player extends ex.Actor {
   public xVelocity = 250;
@@ -115,7 +117,11 @@ export class Player extends ex.Actor {
   }
 
   onPostCollision(evt: ex.PostCollisionEvent) {
-    if (evt.side === ex.Side.Bottom) {
+    if (
+      evt.side === ex.Side.Bottom &&
+      !(evt.other instanceof CaneGreenTrunk) &&
+      !(evt.other instanceof CaneRedTrunk)
+    ) {
       this.onGround = true;
     }
 
@@ -128,7 +134,12 @@ export class Player extends ex.Actor {
   }
 
   onPreUpdate(engine: ex.Engine, delta: number) {
-    // TODO: ray cast below for floor tile, set onGround = false if not
+    /**
+     * hack to preven in-air jumps
+     * TODO: ray cast below for floor tile, set onGround = false if not
+     */
+    if (this.vel.y >= 200) this.onGround = false;
+
     this.vel.x = 0;
 
     if (this.crouchTime > 0) {
