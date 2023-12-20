@@ -16,8 +16,8 @@ export class Campfire extends ex.Actor {
   private heatDecayMS = 100;
   private isActive;
 
-  heatStatusBar: StatusBar;
-  calendar: Calendar;
+  private heatStatusBar: StatusBar;
+  private calendar: Calendar;
 
   constructor(
     x: number,
@@ -64,14 +64,14 @@ export class Campfire extends ex.Actor {
   }
 
   /**
-   * Lose one log's worth every 24 seconds
+   * Lose one log's worth every 23 seconds
    * Collecting the furthest log takes < 30 seconds
    */
   startHeatDecline(): void {
     setTimeout(() => {
       if (!this.isActive) return;
 
-      this.setHeat(this.heat - LOG_HEAT_VALUE / (10 * 24));
+      this.setHeat(this.heat - LOG_HEAT_VALUE / (10 * 23));
       this.startHeatDecline();
     }, this.heatDecayMS);
   }

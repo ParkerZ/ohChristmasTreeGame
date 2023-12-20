@@ -2,15 +2,16 @@ import * as ex from "excalibur";
 import { Player } from "../player";
 import { ChristmasTree } from "../christmasTree";
 import { StatusBar } from "../ui/statusBar";
-import { SOUNDTRACK_VOLUME, TOTAL_HEAT, TOTAL_WATER } from "../constants";
+import { TOTAL_HEAT, TOTAL_WATER } from "../constants";
 import { TileMap } from "../maps/tileMap";
 import { LevelBackground } from "../ui/levelBackground";
 import { Campfire } from "../campfire";
-import { Resources, barCanSprite, barWoodSprite } from "../resources";
+import { barCanSprite, barWoodSprite } from "../resources";
 import { Calendar } from "../ui/calendar";
 import { SceneManager } from "../sceneManager";
 import { TUTORIAL_MAP_LAYOUT } from "../maps/tutorialMap";
 import { Igloo } from "../igloo";
+import { PlayerCameraMount } from "../playerCameraMount";
 
 export class Tutorial extends ex.Scene {
   constructor() {
@@ -18,12 +19,12 @@ export class Tutorial extends ex.Scene {
   }
 
   onInitialize(engine: ex.Engine) {
-    if (Resources.sounds.soundtrack.isPaused())
-      Resources.sounds.soundtrack.play(SOUNDTRACK_VOLUME);
     const player = new Player(
       engine.halfDrawWidth + 40,
       engine.halfDrawHeight + 300
     );
+
+    const cameraMount = new PlayerCameraMount(player);
 
     const map = new TileMap(
       engine.halfDrawWidth,
@@ -97,6 +98,7 @@ export class Tutorial extends ex.Scene {
     const bg = new LevelBackground(this.camera);
 
     engine.add(player);
+    engine.add(cameraMount);
 
     floorsToDraw.forEach((floorActor) => engine.add(floorActor));
 
@@ -114,9 +116,9 @@ export class Tutorial extends ex.Scene {
     // For the test harness to be predicable
     if (!(window as any).__TESTING) {
       // Create camera strategy
-      this.camera.pos = player.pos;
+      this.camera.pos = cameraMount.pos;
       this.camera.clearAllStrategies();
-      this.camera.strategy.elasticToActor(player, 0.05, 0.1);
+      this.camera.strategy.elasticToActor(cameraMount, 0.05, 0.1);
     }
   }
 }

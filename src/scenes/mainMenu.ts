@@ -1,7 +1,8 @@
 import * as ex from "excalibur";
 import { StartButton } from "../ui/startButton";
 import { MenuBackground } from "../ui/menuBackground";
-import { backgroundMenuSprite } from "../resources";
+import { Resources, backgroundMenuSprite } from "../resources";
+import { SOUNDTRACK_VOLUME } from "../constants";
 
 export class MainMenu extends ex.Scene {
   constructor() {
@@ -18,5 +19,10 @@ export class MainMenu extends ex.Scene {
 
     engine.add(bg);
     engine.add(button);
+  }
+
+  onActivate(_context: ex.SceneActivationContext<unknown>): void {
+    Resources.sounds.soundtrack.loop = true;
+    Resources.sounds.soundtrack.play(SOUNDTRACK_VOLUME);
   }
 }

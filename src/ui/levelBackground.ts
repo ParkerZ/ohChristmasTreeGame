@@ -2,7 +2,8 @@ import * as ex from "excalibur";
 import { backgroundLevelSprite } from "../resources";
 
 export class LevelBackground extends ex.Actor {
-  camera;
+  private camera;
+
   constructor(camera: ex.Camera) {
     super({
       x: 0,

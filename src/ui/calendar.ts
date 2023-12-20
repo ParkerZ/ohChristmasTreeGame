@@ -5,9 +5,9 @@ import { CALENDAR_DAY_INTERVAL } from "../constants";
 
 export class Calendar extends ex.ScreenElement {
   private dayIndex = 0;
-  sprite;
-  isActive;
-  isChristmas = false;
+  private sprite;
+  private isActive;
+  private isChristmas = false;
   private hasActivated = false;
 
   constructor(x: number, y: number, isActive = true) {
@@ -47,7 +47,7 @@ export class Calendar extends ex.ScreenElement {
   }
 
   nextDay(engine: ex.Engine): void {
-    if (!this.isActive) return;
+    if (!this.isActive || !this.scene.isCurrentScene()) return;
     this.dayIndex += 1;
 
     const page = new CalendarPage(this.pos.x, this.pos.y, this.sprite);

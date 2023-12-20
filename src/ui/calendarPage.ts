@@ -2,7 +2,7 @@ import * as ex from "excalibur";
 import { Resources } from "../resources";
 
 export class CalendarPage extends ex.Actor {
-  sprite;
+  private sprite;
 
   constructor(x: number, y: number, sprite: ex.Sprite) {
     super({

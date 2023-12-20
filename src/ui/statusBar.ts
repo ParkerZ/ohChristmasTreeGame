@@ -14,20 +14,20 @@ import {
 const iconOffset = ex.vec(55, 0);
 
 export class StatusBar extends ex.ScreenElement {
-  foreLeft;
-  foreMid;
-  foreRight;
-  backLeft = barWhiteLeftSprite.clone();
-  backMid = barWhiteMidSprite.clone();
-  backRight = barWhiteRightSprite.clone();
-  iconSprite;
-  iconPos;
-  barWidth = 400;
-  barHeight = 25;
-  total;
-  current;
+  private foreLeft;
+  private foreMid;
+  private foreRight;
+  private backLeft = barWhiteLeftSprite.clone();
+  private backMid = barWhiteMidSprite.clone();
+  private backRight = barWhiteRightSprite.clone();
+  private iconSprite;
+  private iconPos;
+  private barWidth = 400;
+  private barHeight = 25;
+  private total;
+  private current;
 
-  isActive;
+  private isActive;
 
   constructor(
     x: number,

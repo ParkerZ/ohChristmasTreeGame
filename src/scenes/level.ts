@@ -10,6 +10,7 @@ import { Resources, barCanSprite, barWoodSprite } from "../resources";
 import { Calendar } from "../ui/calendar";
 import { SceneManager } from "../sceneManager";
 import { LEVEL_MAP_LAYOUT } from "../maps/levelMap";
+import { PlayerCameraMount } from "../playerCameraMount";
 
 // Level should last 200 seconds
 export class Level extends ex.Scene {
@@ -24,6 +25,8 @@ export class Level extends ex.Scene {
       engine.halfDrawWidth + 40,
       engine.halfDrawHeight + 300
     );
+
+    const cameraMount = new PlayerCameraMount(player);
 
     const map = new TileMap(
       engine.halfDrawWidth,
@@ -76,6 +79,7 @@ export class Level extends ex.Scene {
     const bg = new LevelBackground(this.camera);
 
     engine.add(player);
+    engine.add(cameraMount);
 
     floorsToDraw.forEach((floorActor) => engine.add(floorActor));
 
@@ -91,9 +95,9 @@ export class Level extends ex.Scene {
     // For the test harness to be predicable
     if (!(window as any).__TESTING) {
       // Create camera strategy
-      this.camera.pos = player.pos;
+      this.camera.pos = cameraMount.pos;
       this.camera.clearAllStrategies();
-      this.camera.strategy.elasticToActor(player, 0.05, 0.1);
+      this.camera.strategy.elasticToActor(cameraMount, 0.05, 0.1);
     }
   }
 }

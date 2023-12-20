@@ -11,8 +11,8 @@ export class ChristmasTree extends ex.Actor {
   private waterDecayMS = 100;
   private isActive;
 
-  waterStatusBar: StatusBar;
-  calendar: Calendar;
+  private waterStatusBar: StatusBar;
+  private calendar: Calendar;
 
   constructor(
     x: number,
@@ -60,13 +60,13 @@ export class ChristmasTree extends ex.Actor {
   }
 
   /**
-   * Lose one bucket's worth every 28 seconds
+   * Lose one bucket's worth every 27 seconds
    * Collecting the furthest bucket takes < 40 seconds
    */ startWaterDecline(): void {
     setTimeout(() => {
       if (!this.isActive) return;
 
-      this.setWater(this.water - BUCKET_WATER_VALUE / (10 * 28));
+      this.setWater(this.water - BUCKET_WATER_VALUE / (10 * 27));
       this.startWaterDecline();
     }, this.waterDecayMS);
   }

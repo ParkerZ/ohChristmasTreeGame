@@ -1,11 +1,10 @@
 import * as ex from "excalibur";
 import { Player } from "./player";
 import { envSpriteSheet } from "./resources";
-import { ENV_TILE_RATIO } from "./constants";
 import { Level } from "./scenes/level";
 
 export class Igloo extends ex.Actor {
-  loadLevel = false;
+  private loadLevel = false;
 
   constructor(x: number, y: number) {
     super({

@@ -101,6 +101,8 @@ const Resources = {
 };
 
 const loader = new ex.Loader();
+loader.suppressPlayButton = true;
+// loader.hidePlayButton();
 
 const playerSpriteSheet = ex.SpriteSheet.fromImageSource({
   image: Resources.player,

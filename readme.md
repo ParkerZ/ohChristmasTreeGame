@@ -1,6 +1,18 @@
-# Oh Christmas Tree
+# O Christmas Tree
 
-Made as entry for game jam.
+You brought your Christmas tree home too early!
+
+Explore a winter wonderland to find watering cans for your tree and yule logs for your fire. Act fast to keep your tree healthy until Christmas morning.
+
+While exploring, you may find some ornaments. Decorate your tree to keep up holiday cheer. See if you can find all 5!
+
+_Made as an entry for a holiday game competition._
+
+## Playable Demo
+
+A [playable demo](https://farkatdark.itch.io/o-christmas-tree) of this game is available on Itch.io.
+
+![gameplay picture](./res/octGameplay.png)
 
 ## Running locally
 

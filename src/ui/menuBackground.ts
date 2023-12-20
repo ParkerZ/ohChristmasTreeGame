@@ -1,7 +1,8 @@
 import * as ex from "excalibur";
 
 export class MenuBackground extends ex.ScreenElement {
-  sprite;
+  private sprite;
+
   constructor(bgSprite: ex.Sprite) {
     super({
       x: 0,

@@ -10,8 +10,8 @@ import { Level } from "../scenes/level";
 import { Tutorial } from "../scenes/tutorial";
 
 export class StartButton extends ex.ScreenElement {
-  sprite;
-  shouldLoadTutorial;
+  private sprite;
+  private shouldLoadTutorial;
 
   constructor(x: number, y: number, shouldLoadTutorial = false) {
     super({

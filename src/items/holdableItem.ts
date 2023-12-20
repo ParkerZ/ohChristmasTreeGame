@@ -3,9 +3,9 @@ import { Player } from "../player";
 import { PlayerInventory } from "../types";
 
 export class HoldableItem extends ex.Actor {
-  public itemType;
-  public sound;
-  volume;
+  private itemType;
+  private sound;
+  private volume;
 
   constructor(
     x: number,
@@ -28,7 +28,6 @@ export class HoldableItem extends ex.Actor {
   }
 
   onInitialize(_engine: ex.Engine): void {
-    // Handle pickup
     this.on("collisionstart", (evt) => this.onCollisionStart(evt));
   }
 

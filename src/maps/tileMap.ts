@@ -18,6 +18,7 @@ import { Ornament } from "../items/ornament";
 import { WaterBucket } from "../items/waterBucket";
 import { randomBool, randomInt } from "../utils";
 
+// Converts map data from array to Actors to be added to the engine
 export class TileMap {
   private floorTiles: Floor[] = [];
 

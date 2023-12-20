@@ -46,10 +46,7 @@ engine.on("visible", () => {
 });
 
 // Start the engine
-engine.start(loader).then(() => {
-  Resources.sounds.soundtrack.loop = true;
-  Resources.sounds.soundtrack.play(SOUNDTRACK_VOLUME);
-});
+engine.start(loader).then(() => {});
 
 // For test hook
 (window as any).engine = engine;

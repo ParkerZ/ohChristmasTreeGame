@@ -1,7 +1,7 @@
 import * as ex from "excalibur";
 
 export class DisplayText extends ex.ScreenElement {
-  text;
+  private text;
 
   constructor(x: number, y: number, text: string) {
     super({

@@ -18,14 +18,15 @@ import { CaneGreenTrunk } from "./floorTiles/caneGreenTrunk";
 import { CaneRedTrunk } from "./floorTiles/caneRedTrunk";
 
 export class Player extends ex.Actor {
-  public xVelocity = 250;
-  public yVelocity = 770;
-  public onGround = true;
-  public jumped = false;
-  public crouch = false;
-  public crouchTime: number = 0;
+  private xVelocity = 250;
+  private yVelocity = 770;
+  private onGround = true;
+  private jumped = false;
+  private crouch = false;
+  private crouchTime: number = 0;
   private inventory: PlayerInventory = "empty";
   private lastDir = "right";
+
   constructor(x: number, y: number) {
     super({
       name: "Player",
@@ -134,10 +135,6 @@ export class Player extends ex.Actor {
   }
 
   onPreUpdate(engine: ex.Engine, delta: number) {
-    /**
-     * hack to preven in-air jumps
-     * TODO: ray cast below for floor tile, set onGround = false if not
-     */
     if (this.vel.y >= 200) this.onGround = false;
 
     this.vel.x = 0;

@@ -5,7 +5,7 @@ import { Resources, backgroundWinSprite } from "../resources";
 import { OrnamentBar } from "../ui/ornamentBar";
 
 export class WinMenu extends ex.Scene {
-  ornamentBar: OrnamentBar | undefined;
+  private ornamentBar: OrnamentBar | undefined;
 
   constructor() {
     super();

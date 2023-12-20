@@ -13,13 +13,13 @@ import {
 import { DisplayText } from "./ui/displayText";
 
 export class SceneManager extends ex.Actor {
-  christmasTree;
-  campfire;
-  calendar;
-  player;
-  isTutorial;
-  lastPlayerInv = "empty";
-  displayText: DisplayText | undefined;
+  private christmasTree;
+  private campfire;
+  private calendar;
+  private player;
+  private isTutorial;
+  private lastPlayerInv = "empty";
+  private displayText: DisplayText | undefined;
 
   constructor(
     christmasTree: ChristmasTree,

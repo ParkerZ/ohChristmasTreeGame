@@ -2,7 +2,8 @@ import * as ex from "excalibur";
 import { ornamentEmptyIconSprite, ornamentFullIconSprite } from "../resources";
 
 export class OrnamentBar extends ex.ScreenElement {
-  numOrnaments = 0;
+  private numOrnaments = 0;
+
   constructor() {
     super({
       x: 0,
